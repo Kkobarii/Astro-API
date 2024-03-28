@@ -4,6 +4,8 @@
     "description": "Simple API for Resources in Astroneer",
     "main": "index.js",
     "scripts": {
+        "migrate": "npx prisma migrate dev --name init",
+        "seed": "node be/scripts/insert.js",
         "be": "node --watch be/index.js"
     },
     "author": "KovKor",

@@ -10,10 +10,11 @@ A small API &amp; React app implementation based on the Astroneer game, created 
 ### Backend
 - For first build, you have to setup prisma
     - Install prisma with `npm i prisma --save-dev`
-    - Run `npx prisma migrate dev --name init` to create the database
+    - Run `npm run migrate` to create the database
+    - Then, run `npm run seed` to insert some test data
 - Working with the database
-    - To update the schema, run `npx prisma migrate dev --name init`
-    - Run `npx prisma studio` to open the prisma studio
+    - To update the schema, run `npm run migrate`
+    - Optionally, run `npx prisma studio` to open the prisma studio
 - **Run dev**: `npm run be`
 
 ### Frontend (TODO)

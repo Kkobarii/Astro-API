@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is our Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -11,11 +11,75 @@ datasource db {
 }
 
 model Planet {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
+  id Int     @id @default(autoincrement())
+
+  name String @unique
+  type String
+  description String?
+
+  size String
+  difficulty String
+  sun String
+  wind String
+
+  iconUrl String?
+  imageUrl String?
+
+  resources PlanetResource[]
+  gases PlanetGas[]
 }
 
 model Resource {
-  id        Int     @id @default(autoincrement())
-  name     String   @unique
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  description String?
+
+  byteValue Int
+  scrapValue Int
+
+  smeltsInto String?
+
+  iconUrl String?
+  imageUrl String?
+
+  planets PlanetResource[]
+}
+
+model PlanetResource {
+  planet    Planet  @relation(fields: [planetId], references: [id])
+  planetId  Int
+  resource  Resource @relation(fields: [resourceId], references: [id])
+  resourceId Int
+
+  location String
+
+  @@id([planetId, resourceId])
+}
+
+model Gas {
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  description String?
+
+  byteValue Int
+
+  usedIn String?
+
+  iconUrl String?
+  imageUrl String?
+
+  planets PlanetGas[]
+}
+
+model PlanetGas {
+  planet    Planet  @relation(fields: [planetId], references: [id])
+  planetId  Int
+  gas       Gas     @relation(fields: [gasId], references: [id])
+  gasId     Int
+
+  partsPerUnit Int
+
+  @@id([planetId, gasId])
 }
