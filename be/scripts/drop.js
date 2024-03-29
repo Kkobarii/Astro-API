@@ -35,6 +35,11 @@ const DropAll = async () => {
   await DropPlanet();
   await DropResource();
   await DropGas();
+
+  // todo zeptat se v hodine
+  // await prisma.$executeRaw`delete from sqlite_sequence where name='planet';`;
+  // await prisma.$executeRaw`UPDATE sqlite_sequence SET seq = 0 WHERE name = 'resource';`;
+  // await prisma.$executeRaw`UPDATE sqlite_sequence SET seq = 0 WHERE name = 'gas';`;
 };
 
 try {
