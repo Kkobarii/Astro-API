@@ -81,7 +81,7 @@ const MapResourceToPlanet = async () => {
   });
 
   console.log("Mapped Malachite to Sylva");
-}
+};
 
 const MapGasToPlanet = async () => {
   const planet = await prisma.planet.findUnique({
@@ -103,7 +103,7 @@ const MapGasToPlanet = async () => {
     },
   });
   console.log("Mapped Hydrogen to Sylva");
-}
+};
 
 // Run the script
 

@@ -9,6 +9,7 @@ And here is the specification of the project: [Astro-API](https://docs.google.co
 - Create an `.env` file with `cp .env.example .env`
   - No need to change anything actually
 - You can setup it by yourself or **just run `npm run setup`**
+- **Pro tip**: If you want to edit anything, after work just run prettier for example with `prettier --write .` or with `npx prettier --write .` so everyting will be nicely formatted 😊
 
 ### Backend
 
@@ -27,36 +28,38 @@ And here is the specification of the project: [Astro-API](https://docs.google.co
 
 - **Run dev**: `npm run fe` in the root directory
 
-
 ### TODO
 
 **Back-end (NodeJS):**
+
 - 5 Functional requirements
-    - [x] At least 2 resources (2 tables connected to each other via key)
-    - [x] All CRUD operations on one resource
-    - [x] At least 2 operations on second resource
+  - [x] At least 2 resources (2 tables connected to each other via key)
+  - [x] All CRUD operations on one resource
+  - [x] At least 2 operations on second resource
 - 5 ORM Layer
-    - [x] Connection to the DB via a ORM library 
-    - [ ] Error handling
-- 5 Express REST API layer 
-    - [ ] Valid API up to the REST specification for all operations on resources
-    - [ ] Status handling & error messages
+  - [x] Connection to the DB via a ORM library
+  - [x] Error handling
+- 5 Express REST API layer
+  - [ ] Valid API up to the REST specification for all operations on resources
+  - [x] Status handling & error messages
 
 **Front-end (React):**
+
 - 5 Functional requirements
-    - [ ] App Layout with Navigation (Routing)
-    - [ ] Main page with information about the app
-    - [ ] All CRUD operations on one resource (Create Form, Edit Form, List/Table, Delete, Detail View) 
+  - [ ] App Layout with Navigation (Routing)
+  - [ ] Main page with information about the app
+  - [ ] All CRUD operations on one resource (Create Form, Edit Form, List/Table, Delete, Detail View)
 - 5 Component structure
-    - [ ] Split your application into several components. Don’t make huge ones. 
+  - [ ] Split your application into several components. Don’t make huge ones.
 - 5 Client-side routing
-    - [ ] There should be proper routes for all pages
-    - [ ] Best practices according to react router 
+  - [ ] There should be proper routes for all pages
+  - [ ] Best practices according to react router
 - 5 Data fetching
-    - [ ] Custom API functions
-    - [ ] Proper loading states
-    - [ ] Proper error handling / states 
+  - [ ] Custom API functions
+  - [ ] Proper loading states
+  - [ ] Proper error handling / states
 
 **Overall:**
+
 - 5 Code quality / project setup
-    - [ ] README, Prettier, Able to run the whole project easily! 
+  - [x] README, Prettier, Able to run the whole project easily!
