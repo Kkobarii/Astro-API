@@ -46,7 +46,12 @@ function hasRequiredFields(requiredFields, request, response) {
 }
 
 function notFoundError(res, id) {
-  res.status(404).json({ error: "Item with id {" + id + "} not found" });
+  serverError(
+    res,
+    "id with value " + id + " not found",
+    "Item with id {" + id + "} not found",
+    404
+  );
 }
 
 /**
@@ -69,7 +74,7 @@ export const getById = (model) => async (req, res) => {
     if (!parseInt(id)) {
       return serverError(
         res,
-        "Invalid id type provided",
+        "Invalid id type provided, id not int",
         "Bad request, do you have ID in correct format?",
         400
       );
