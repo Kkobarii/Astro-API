@@ -1,7 +1,7 @@
 # Astro-API
 
 A small API &amp; React app implementation based on the Astroneer game, created for OUR JavaScript course.
-and here is the specification of the project: [Astro-API](https://docs.google.com/document/d/1mbYYzY0j7Xq8KX8a2ei2_Ta1AQUWpfcpD0tORZt8AD4)
+And here is the specification of the project: [Astro-API](https://docs.google.com/document/d/1mbYYzY0j7Xq8KX8a2ei2_Ta1AQUWpfcpD0tORZt8AD4).
 
 ## Run
 
