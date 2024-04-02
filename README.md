@@ -9,7 +9,7 @@ And here is the specification of the project: [Astro-API](https://docs.google.co
 - Create an `.env` file with `cp .env.example .env`
   - No need to change anything actually
 - You can setup it by yourself or **just run `npm run setup`**
-- **Pro tip**: If you want to edit anything, after work just run prettier for example with `prettier --write .` or with `npx prettier --write .` so everyting will be nicely formatted 😊
+- **Pro tip**: If you want to edit anything, after work just run prettier. For example with `prettier --write .` or with `npx prettier --write .` so everyting will be nicely formatted 😊
 
 ### Backend
 
