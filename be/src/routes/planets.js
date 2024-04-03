@@ -8,7 +8,13 @@ const prisma = new PrismaClient();
 const requiredFields = ["name", "type", "size", "difficulty", "sun", "wind"];
 
 // GET all
-router.get("/", crud.getAll(prisma.planet));
+router.get(
+  "/",
+  crud.getAll(prisma.planet, {
+    select: { id: true, name: true, difficulty: true },
+    where: { difficulty: "Easy" },
+  })
+);
 
 // GET one
 router.get("/:id", async (req, res) => {
