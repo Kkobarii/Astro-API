@@ -151,13 +151,22 @@ export const getAll =
   (model, optionals = null, orderBy = { id: "asc" }, page = 1, pageSize = 5) =>
   async (req, res) => {
     try {
+      const totalItems = await model.count();
       const items = await model.findMany({
         ...optionals,
         orderBy: orderBy,
         skip: page * pageSize - pageSize,
         take: pageSize,
       });
-      res.json(items);
+      //res.json(items);
+      //pagination
+      res.json({
+        totalItems: totalItems,
+        totalPages: Math.ceil(totalItems / pageSize),
+        currentPage: page,
+        pageSize: pageSize,
+        items: items,
+      });
     } catch (error) {
       serverError(res, error);
     }
