@@ -30,6 +30,8 @@ const DropPlanetGas = async () => {
 };
 
 const DropAll = async () => {
+  console.log("Dropping tables...");
+
   await DropPlanetGas();
   await DropPlanetResource();
   await DropPlanet();
@@ -41,11 +43,5 @@ const DropAll = async () => {
   // await prisma.$executeRaw`UPDATE sqlite_sequence SET seq = 0 WHERE name = 'resource';`;
   // await prisma.$executeRaw`UPDATE sqlite_sequence SET seq = 0 WHERE name = 'gas';`;
 };
-
-try {
-  DropAll();
-} catch (e) {
-  console.error(e);
-}
 
 export { DropAll };

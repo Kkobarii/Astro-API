@@ -1,0 +1,317 @@
+{
+  "resources": [
+    {
+      "name": "Malachite",
+      "description": "Malachite is a natural resource in Astroneer. Malachite is found in tall, clumped shards of brown-green crystalline deposits.",
+      "byteValue": 100,
+      "scrapValue": 1,
+      "smeltsInto": "Copper",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/3b/Icon_Malachite.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/b/be/Nugget_Malachite.png"
+    },
+    {
+      "name": "Sphalerite",
+      "description": "Sphalerite is a natural resource in Astroneer. It has the appearance of dark purple geodes with spiky crystals.",
+      "byteValue": 100,
+      "scrapValue": 1,
+      "smeltsInto": "Zinc",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/5/5d/Icon_Sphalerite.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/c/cd/Nugget_Sphalerite.png"
+    },
+    {
+      "name": "Wolframite",
+      "description": "Wolframite is a natural resource in Astroneer. Wolframite is a cluster of cubes, similar to real world Bismuth, with a green-yellow gradient.",
+      "byteValue": 100,
+      "scrapValue": 2,
+      "smeltsInto": "Tungsten",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/a/ae/Icon_Wolframite.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/0/03/Nugget_Wolframite.png"
+    },
+    {
+      "name": "Titanite",
+      "description": "Titanite is a rare resource in Astroneer. It occurs in nodes of tall, cylindrical lime green crystals.",
+      "byteValue": 200,
+      "scrapValue": 2,
+      "smeltsInto": "Titanium",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/d/d8/Icon_Titanite.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/e/e7/Nugget_Titanite.png"
+    },
+    {
+      "name": "Lithium",
+      "description": "Lithium is a natural resource in Astroneer. Lithium occurs in curly noodle-shaped nodes of pink-and-gold tubes.",
+      "byteValue": 200,
+      "scrapValue": 4,
+      "smeltsInto": "Lithium",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/2/20/Icon_Lithium.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/e/ef/Nugget_Lithium.png"
+    },
+    {
+      "name": "Hematite",
+      "description": "Hematite is a natural resource in Astroneer. Hematite is made of reddish-black, crystalline spikes.",
+      "byteValue": 200,
+      "scrapValue": 2,
+      "smeltsInto": "Iron",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/7/75/Icon_Hematite.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/39/Nugget_Hematite.png"
+    }
+  ],
+  "gases": [
+    {
+      "name": "Hydrogen",
+      "description": "Hydrogen is an atmospheric resource in Astroneer. It is an orange-yellow gas that is stored in a spherical canister. A yellow ring on top indicates how much gas is left in the canister.",
+      "byteValue": 100,
+      "usedIn": "Hydrazine",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/4/42/Icon_Hydrogen.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/4/40/Nugget_Hydrogen.png"
+    },
+    {
+      "name": "Nitrogen",
+      "description": "Nitrogen is an atmospheric resource in Astroneer. It is a blue-violet gas that is stored in a spherical canister. A fuchsia ring on top indicates how much gas is left in the canister.",
+      "byteValue": 200,
+      "usedIn": "Titanium Alloy",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/e/e2/Icon_Nitrogen.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/d/d7/Nugget_Nitrogen.png"
+    },
+    {
+      "name": "Sulfur",
+      "description": "Sulfur is an atmospheric resource in Astroneer. It is a dark red gas that is stored in a spherical canister. An orange ring on top indicates how much gas is left in the canister.",
+      "byteValue": 300,
+      "usedIn": "Explosive Powder",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/4/45/Icon_Sulfur.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/5/5d/Nugget_Sulfur.png"
+    },
+    {
+      "name": "Argon",
+      "description": "Argon is an atmospheric resource in Astroneer. It is a blue gas that is stored in a spherical canister. A blue ring on top indicates how much gas is left in the canister.",
+      "byteValue": 300,
+      "usedIn": "Steel",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/2/24/Icon_Argon.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/b/b7/Nugget_Argon.png"
+    },
+    {
+      "name": "Methane",
+      "description": "Methane is an atmospheric resource in Astroneer. It is a dark turquoise gas that is stored in a spherical canister. A teal ring on top indicates how much gas is left in the canister.",
+      "byteValue": 400,
+      "usedIn": "Silicone",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/1/14/Icon_Methane.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/e/e6/Nugget_Methane.png"
+    },
+    {
+      "name": "Helium",
+      "description": "Helium is an atmospheric resource in Astroneer. It is a deep blue gas that is stored in a spherical canister. A light blue ring on top indicates how much gas is left in the canister.",
+      "byteValue": 500,
+      "usedIn": "Nanocarbon Alloy",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/7/79/Icon_Helium.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/9/9a/Nugget_Helium.png"
+    }
+  ],
+  "planets": [
+    {
+      "name": "Sylva",
+      "type": "Terran",
+      "description": "Sylva is a Terran Planet in Astroneer, with the moon Desolo orbiting it. It is the third planet, as well as the starting planet, with everything a player needs to begin their adventure. It has an average atmosphere and is overall very temperate and pleasant. Power generation on Sylva is balanced enough for the player to effectively use solar panels, wind turbines, or generators.",
+      "size": "Medium",
+      "difficulty": "Easy",
+      "sun": "Medium",
+      "wind": "Medium",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/d/d2/Icon_Sylva.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/f/f1/Sylva.png",
+      "resources": [
+        {
+          "name": "Malachite",
+          "location": "Gray Mountains and Mantle Layers"
+        },
+        {
+          "name": "Sphalerite",
+          "location": "Cave Layer"
+        }
+      ],
+      "gases": [
+        {
+          "name": "Hydrogen",
+          "partsPerUnit": 75
+        },
+        {
+          "name": "Nitrogen",
+          "partsPerUnit": 100
+        }
+      ]
+    },
+    {
+      "name": "Desolo",
+      "type": "Terran Moon",
+      "description": "Desolo is a Terran Moon Planet in Astroneer and is the moon of Sylva. It has an extremely thin atmosphere, and is pockmarked with craters and bare rocks scattered around the surface. Several of the craters are filled with grassy plants, which offer a good source of Organic. With its primary resource being Wolframite and due to its proximity to Sylva, Desolo is often the second stop on the player's adventure. The Tungsten derived from the available Wolframite allows players to craft Medium Generators and the Chemistry Lab. The former makes the player's power management less dependent on winds and the day/night cycle. The latter allows for production of basic composite materials, which are essential ingredients for more sophisticated crafting recipes.",
+      "size": "Small",
+      "difficulty": "Easy",
+      "sun": "High",
+      "wind": "Low",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/0/0e/Icon_Desolo.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/a/a8/Desolo.png",
+      "resources": [
+        {
+          "name": "Wolframite",
+          "location": "Cave Layer"
+        },
+        {
+          "name": "Sphalerite",
+          "location": "Gray Plains and Mantle Layer"
+        }
+      ],
+      "gases": []
+    },
+    {
+      "name": "Calidor",
+      "type": "Arid",
+      "description": "Calidor is an Arid Planet in Astroneer. It is a dry, sun-blasted planet with a normal atmosphere and desertic terrain, with sloping sand dunes and frequent mesas, buttes and canyons, and desert-themed foliage such as cacti and shrubs. The planet has a slightly longer day/night cycle than Sylva, the Terran planet. Malachite can be found in abundance in the upper underground caves, and within the narrow surface canyons to a lesser extent. Wolframite can also be found in surface cliffs, and deep within the planet, with trace amounts of Laterite not uncommon. Additionally, single pieces of Hematite can commonly be found in wrecks on Calidor.",
+      "size": "Medium",
+      "difficulty": "Medium",
+      "sun": "Very High",
+      "wind": "Low",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/f/f6/Icon_Calidor.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/3a/Calidor.png",
+      "resources": [
+        {
+          "name": "Malachite",
+          "location": "Cave Layer"
+        },
+        {
+          "name": "Wolframite",
+          "location": "Orange Mesas and Mantle Layer"
+        }
+      ],
+      "gases": [
+        {
+          "name": "Hydrogen",
+          "partsPerUnit": 50
+        },
+        {
+          "name": "Sulfur",
+          "partsPerUnit": 100
+        }
+      ]
+    },
+    {
+      "name": "Vesania",
+      "type": "Exotic",
+      "description": "Vesania is an exotic planet in Astroneer. Its moon, Novus, orbits around the planet. It's perhaps one of the most distinct Planets in Astroneer, with its thick and lush atmosphere and very unusual Terrain. Large canyons, massive boulders and steep hills can make Vesania difficult to travel around by rover, unless you have a paver equipped. Vesania features all the mineral and gas resources for Titanium Alloy production, with the only missing resources for Nanocarbon Alloy being Hematite and Helium. It also houses one of the MATs.",
+      "size": "Medium",
+      "difficulty": "Medium",
+      "sun": "Low",
+      "wind": "High",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/f/fd/Icon_Vesania.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/b/b6/Vesania.png",
+      "resources": [
+        {
+          "name": "Lithium",
+          "location": "Cave Layer"
+        },
+        {
+          "name": "Titanite",
+          "location": "Purple Hills and Mantle Layer"
+        }
+      ],
+      "gases": [
+        {
+          "name": "Hydrogen",
+          "partsPerUnit": 100
+        },
+        {
+          "name": "Argon",
+          "partsPerUnit": 50
+        },
+        {
+          "name": "Nitrogen",
+          "partsPerUnit": 75
+        }
+      ]
+    },
+    {
+      "name": "Novus",
+      "type": "Exotic Moon",
+      "description": "Novus is a Planet in Astroneer. It is the moon of the Exotic planet Vesania. It's perhaps one of the most distinct Planets in Astroneer, with its thin foggy atmosphere and purple, sparsely forested and cratered Terrain. The surface of the moon is pockmarked with craters, much like Desolo, the other terrestrial moon. It has plenty of flora on its surface such as Popcoral, Lashleaf, Cataplant, and Thistlewhip. Many permanently active geysers can be found on the surface of Novus.",
+      "size": "Small",
+      "difficulty": "Medium",
+      "sun": "High",
+      "wind": "High",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/1/1c/Icon_Novus.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/4/49/Novus.png",
+      "resources": [
+        {
+          "name": "Hematite",
+          "location": "Cave Layer"
+        },
+        {
+          "name": "Lithium",
+          "location": "Mountains and Mantle Layer"
+        }
+      ],
+      "gases": [
+        {
+          "name": "Hydrogen",
+          "partsPerUnit": 25
+        },
+        {
+          "name": "Methane",
+          "partsPerUnit": 75
+        }
+      ]
+    },
+    {
+      "name": "Glacio",
+      "type": "Tundra",
+      "description": "Glacio is a Tundra Planet in Astroneer. Glacio is the farthest planet away from the sun, it has a windswept thin atmosphere and icy mountains. The surface of the planet is full of many research items and research samples that can be researched for anywhere between 100 and 500 bytes each, making it one of the best planets to gather bytes. Hematite can be found all over the surface and often near the shuttle, making it much easier to harvest without the need of an Oxygenator, and the presence of Argon (100 PPU) allows one-planet Steel production. Ammonium and Graphite can also be found naturally, scattered across the cold surface, but at a much lesser rate than Hematite. Examples of Debris found on the surface are most commonly broken or working medium wind turbines, lessening the need to bring generators. Titanite can be found in large clusters underground along with Popcoral, which can kill in one puff if the player stands too close while breaking it. Glacio has lots of other Hazards.",
+      "size": "Medium",
+      "difficulty": "Hard",
+      "sun": "Very Low",
+      "wind": "Very High",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/d/dc/Icon_Glacio.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/2/2e/Glacio.png",
+      "resources": [
+        {
+          "name": "Titanite",
+          "location": "Cave Layer"
+        },
+        {
+          "name": "Hematite",
+          "location": "Ice Plains and Mantle Layer"
+        }
+      ],
+      "gases": [
+        {
+          "name": "Argon",
+          "partsPerUnit": 100
+        }
+      ]
+    },
+    {
+      "name": "Atrox",
+      "type": "Radiated",
+      "description": "Atrox is a Radiated Planet in Astroneer. It is the closest planet to the sun. It has a choked, greenish-yellow atmosphere with a surface that is made up of dark hills with luminous acorn-shaped rocks, deep yellow ravines, and shattered mountains, making it very difficult to traverse with rovers. Flora on and below the surface of Atrox is deadly, which includes Attacti, Spewflowers, and Wheezeweeds. Atrox has the highest valued research items and research samples, with samples ranging from 70 Bytes on the surface, to 1,188 in the outer core, and research items giving as much as 14,400 Bytes. Power is difficult to maintain on Atrox due to the low wind and solar conditions. RTGs and generators are the best choice, as they require no input of wind or solar.",
+      "size": "Medium",
+      "difficulty": "Very Hard",
+      "sun": "Low",
+      "wind": "Low",
+      "iconUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/5/5c/Icon_Atrox.png",
+      "imageUrl": "https://static.wikia.nocookie.net/astroneer_gamepedia/images/a/a2/Atrox.png",
+      "resources": [],
+      "gases": [
+        {
+          "name": "Helium",
+          "partsPerUnit": 25
+        },
+        {
+          "name": "Methane",
+          "partsPerUnit": 100
+        },
+        {
+          "name": "Nitrogen",
+          "partsPerUnit": 50
+        },
+        {
+          "name": "Sulfur",
+          "partsPerUnit": 75
+        }
+      ]
+    }
+  ]
+}
