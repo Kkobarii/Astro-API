@@ -26,7 +26,10 @@ And here is the specification of the project: [Astro-API](https://docs.google.co
 
 ### Frontend (TODO)
 
-- **Run dev**: `npm run fe` in the root directory
+- Change directory into the `fe` directory with `cd fe`
+- First, install dependencies with `npm i`
+- And now you can run the react app
+- **Run dev**: `npm start` in the `fe` directory
 
 ### TODO
 
