@@ -78,7 +78,7 @@ function checkFields(model, fields, response) {
   // }
 
   const allowedFields = Object.keys(model.fields);
-  errors = [];
+  let errors = [];
   for (let keyword in filteredDict) {
     for (let field in filteredDict[keyword]) {
       if (!allowedFields.includes(field)) {
@@ -123,8 +123,6 @@ function itemExists(id, model, optionals = null) {
 }
 
 export const getById = (model, optionals) => async (req, res) => {
-  console.log("dopiči kurva", optionals); //TODO PROČ KURVA TOHLE JE UNDEFINED
-
   try {
     const { id } = req.params;
     if (!parseInt(id)) {
@@ -136,7 +134,6 @@ export const getById = (model, optionals) => async (req, res) => {
       );
     }
 
-    checkFields(model, optionals, res);
     const item = await itemExists(id, model, optionals);
 
     if (!item) {
@@ -151,32 +148,12 @@ export const getById = (model, optionals) => async (req, res) => {
 };
 
 export const getAll =
-  (
-    model,
-    where = null,
-    orderBy = { id: "asc" },
-    include = null,
-    page = 1,
-    pageSize = 5
-  ) =>
+  (model, optionals = null, orderBy = { id: "asc" }, page = 1, pageSize = 5) =>
   async (req, res) => {
     try {
-      // Check if all fields in where exist in the model
-      const whereFields = Object.keys(where || {});
-      const allFieldsExist = whereFields.every((field) =>
-        modelFields.includes(field)
-      );
-
-      if (!allFieldsExist) {
-        return res
-          .status(400)
-          .json({ error: "Invalid fields in where clause" });
-      }
-
       const items = await model.findMany({
-        where: where,
+        ...optionals,
         orderBy: orderBy,
-        include: include,
         skip: page * pageSize - pageSize,
         take: pageSize,
       });
@@ -187,11 +164,6 @@ export const getAll =
   };
 
 export const create = (model, requiredFields) => async (req, res) => {
-  const allowedFields = Object.keys(model.fields);
-  const notNullFields = Object.keys(model.fields).filter(
-    (field) => !model.fields[field].nullable
-  );
-
   try {
     if (!hasRequiredFields(requiredFields, req, res)) {
       return;
@@ -205,8 +177,12 @@ export const create = (model, requiredFields) => async (req, res) => {
   }
 };
 
-export const update = (model) => async (req, res) => {
+export const update = (model, requiredFields) => async (req, res) => {
   try {
+    if (!hasRequiredFields(requiredFields, req, res)) {
+      return;
+    }
+
     const { id } = req.params;
     if (!parseInt(id)) {
       return serverError(

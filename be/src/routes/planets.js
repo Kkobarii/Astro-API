@@ -13,12 +13,12 @@ router.get("/", crud.getAll(prisma.planet));
 // GET one
 router.get("/:id", async (req, res) => {
   const optionals = {
-    select: { id: true, name: true },
-    include: { resources: true },
+    select: { id: true, name: true, resources: true },
+    //include: { resources: true },
     where: { id: 1 },
   };
 
-  crud.getById(prisma.planet, planet)(req, res);
+  crud.getById(prisma.planet, optionals)(req, res);
 });
 
 // POST
