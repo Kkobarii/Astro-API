@@ -25,7 +25,9 @@ function App() {
       </header>
       <FirstComponent />
       <PropsComponent firstName="Jožko" lastName="Mrkvička" />
-      <UserList />
+      <PropsComponent firstName="Žožko" lastName="Placička" />
+      <PropsComponent firstName="Božo" lastName="Ředkvička" />
+      
     </div>
   );
 }

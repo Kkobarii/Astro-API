@@ -3,12 +3,17 @@
 A small API &amp; React app implementation based on the Astroneer game, created for OUR JavaScript course.
 And here is the specification of the project: [Astro-API](https://docs.google.com/document/d/1mbYYzY0j7Xq8KX8a2ei2_Ta1AQUWpfcpD0tORZt8AD4).
 
+Forntend is actually written in Typescript React and backend in Javascript (I forgot to setup it in typescript)
+
 ## Run
 
 - Clone the repository
 - Create an `.env` file with `cp .env.example .env`
   - No need to change anything actually
-- You can setup it by yourself or **just run `npm run setup`**
+- You can setup it by yourself or **just run `npm run setup`**, no other work needed for frontend or backend
+  - After that you could write
+    - `npm run be` to start backend
+    - `npm run fe` to start frontend
 - **Pro tip**: If you want to edit anything, after work just run prettier. For example with `prettier --write .` or with `npx prettier --write .` so everyting will be nicely formatted 😊
 
 ### Backend
@@ -24,12 +29,12 @@ And here is the specification of the project: [Astro-API](https://docs.google.co
   - Optionally, run `npx prisma studio` to open the prisma studio
 - **Run dev**: `npm run be`
 
-### Frontend (TODO)
+### Frontend
 
 - Change directory into the `fe` directory with `cd fe`
 - First, install dependencies with `npm i`
 - And now you can run the react app
-- **Run dev**: `npm start` in the `fe` directory
+  - **Run dev**: `npm start` in the `fe` directory (you should be there)
 
 ### TODO
 

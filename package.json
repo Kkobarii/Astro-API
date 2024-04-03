@@ -6,9 +6,9 @@
   "scripts": {
     "migrate": "npx prisma migrate dev --name init",
     "seed": "node be/scripts/insert.js",
-    "setup": "npm i && npm run migrate && npm run seed",
+    "setup": "npm i && npm run migrate && npm run seed && cd fe && npm i",
     "be": "node --watch be/index.js",
-    "fe": "echo 'No frontend yet :/ '"
+    "fe": "npm --prefix fe start"
   },
   "author": "KovKor",
   "type": "module",
