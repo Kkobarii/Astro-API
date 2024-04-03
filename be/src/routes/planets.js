@@ -11,7 +11,15 @@ const requiredFields = ["name", "type", "size", "difficulty", "sun", "wind"];
 router.get("/", crud.getAll(prisma.planet));
 
 // GET one
-router.get("/:id", crud.getById(prisma.planet));
+router.get("/:id", async (req, res) => {
+  const optionals = {
+    select: { id: true, name: true },
+    include: { resources: true },
+    where: { id: 1 },
+  };
+
+  crud.getById(prisma.planet, planet)(req, res);
+});
 
 // POST
 router.post("/", crud.create(prisma.planet, requiredFields));

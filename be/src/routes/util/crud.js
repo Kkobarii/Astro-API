@@ -1,5 +1,7 @@
 // A very nice generic CRUD for Prisma models
 
+const allowedSelect = ["select", "include", "where"];
+
 /**
  * classical server error 500
  *
@@ -45,6 +47,55 @@ function hasRequiredFields(requiredFields, request, response) {
   return true;
 }
 
+//TODO test this fckng shit with something bcs im going insane
+/**
+ * checks if provided fields are valid against model from prisma
+ * @param {*} model prisma model
+ * @param {*} fields fields to check
+ * @param {*} response response object
+ * @returns true if all fields are valid, otherwise response.status(400) with invalid fields
+ */
+function checkFields(model, fields, response) {
+  if (!fields) {
+    return true;
+  }
+  // filter to have only select and so on
+  let filteredDict = {};
+  for (let key in fields) {
+    if (allowedSelect.includes(key)) {
+      filteredDict[key] = fields[key];
+      continue;
+    }
+    console.error("Invalid key in fields");
+    console.error(key);
+  }
+
+  //expected input should be like that:
+  // {
+  //  select: {id: true, name: true},
+  //  include: {resources: true},
+  //  where: {id: 1}
+  // }
+
+  const allowedFields = Object.keys(model.fields);
+  errors = [];
+  for (let keyword in filteredDict) {
+    for (let field in filteredDict[keyword]) {
+      if (!allowedFields.includes(field)) {
+        errors.push(field);
+      }
+    }
+  }
+  if (errors.length > 0) {
+    return response.status(400).json({
+      error: "Invalid fields in where clause",
+      invalidFields: errors,
+      acceptedFields: allowedFields,
+    });
+  }
+  return true;
+}
+
 function notFoundError(res, id) {
   serverError(
     res,
@@ -60,15 +111,20 @@ function notFoundError(res, id) {
  * @param {*} model
  * @returns object if found, null if not found (idk if null if not found)
  */
-function itemExists(id, model) {
+function itemExists(id, model, optionals = null) {
+  console.log("optionals", optionals);
+
   return model.findUnique({
     where: {
       id: parseInt(id),
     },
+    ...optionals,
   });
 }
 
-export const getById = (model) => async (req, res) => {
+export const getById = (model, optionals) => async (req, res) => {
+  console.log("dopiči kurva", optionals); //TODO PROČ KURVA TOHLE JE UNDEFINED
+
   try {
     const { id } = req.params;
     if (!parseInt(id)) {
@@ -79,29 +135,63 @@ export const getById = (model) => async (req, res) => {
         400
       );
     }
-    const item = await itemExists(id, model);
+
+    checkFields(model, optionals, res);
+    const item = await itemExists(id, model, optionals);
 
     if (!item) {
       return notFoundError(res, id);
     }
 
     console.log(id, item);
-    res.json(item);
+    return res.json(item);
   } catch (error) {
-    serverError(res, error);
+    return serverError(res, error);
   }
 };
 
-export const getAll = (model) => async (req, res) => {
-  try {
-    const items = await model.findMany();
-    res.json(items);
-  } catch (error) {
-    serverError(res, error);
-  }
-};
+export const getAll =
+  (
+    model,
+    where = null,
+    orderBy = { id: "asc" },
+    include = null,
+    page = 1,
+    pageSize = 5
+  ) =>
+  async (req, res) => {
+    try {
+      // Check if all fields in where exist in the model
+      const whereFields = Object.keys(where || {});
+      const allFieldsExist = whereFields.every((field) =>
+        modelFields.includes(field)
+      );
+
+      if (!allFieldsExist) {
+        return res
+          .status(400)
+          .json({ error: "Invalid fields in where clause" });
+      }
+
+      const items = await model.findMany({
+        where: where,
+        orderBy: orderBy,
+        include: include,
+        skip: page * pageSize - pageSize,
+        take: pageSize,
+      });
+      res.json(items);
+    } catch (error) {
+      serverError(res, error);
+    }
+  };
 
 export const create = (model, requiredFields) => async (req, res) => {
+  const allowedFields = Object.keys(model.fields);
+  const notNullFields = Object.keys(model.fields).filter(
+    (field) => !model.fields[field].nullable
+  );
+
   try {
     if (!hasRequiredFields(requiredFields, req, res)) {
       return;
