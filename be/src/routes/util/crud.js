@@ -2,17 +2,69 @@
 
 const allowedSelect = ["select", "include", "where"];
 
-export function parseQuery(query) {
+/**
+ * better tryparse
+ * @param {*} number variable which should be evaluated
+ * @param {*} name name of the variable to error message
+ * @param {*} res response for serverError
+ * @returns true if its valid, otherwise serverError
+ */
+function parseNumberElseError(number, name, res) {
+  if (!parseInt(number)) {
+    return (
+      false,
+      serverError(
+        res,
+        "Invalid page provided",
+        "Bad request, do you have " + name + " in correct format?",
+        400
+      )
+    );
+  }
+  return true;
+}
+
+/**
+ * not sure how its working even if its working
+ *
+ * anyway it doesnt like pagination input //TODO mby add it to it not sure
+ * @param {*} query
+ * @returns
+ */
+export function parseQuery(query, res) {
   //parse select
-  if (!query) {
+  if (Object.keys(query).length === 0) {
     return null;
   }
 
-  let select = {};
-  query.select.forEach((element) => {
-    select[element] = true;
-  });
+  if (query.select && query.include) {
+    //console.error("Invalid query");
+    return serverError(
+      res,
+      "Invalid query",
+      "You can't use select and include at the same time",
+      400
+    );
+  }
+
+  console.log("query", query);
+
+  //magic go brrrrrrrrrrr
+  let select = Array.isArray(query.select)
+    ? query.select.reduce((obj, key) => ({ ...obj, [key]: true }), {})
+    : query.select
+    ? { [query.select]: true }
+    : {};
   delete query.select;
+  console.log("select", select);
+
+  let include = Array.isArray(query.include)
+    ? query.include.reduce((obj, key) => ({ ...obj, [key]: true }), {})
+    : query.include
+    ? { [query.include]: true }
+    : {};
+  delete query.include;
+  console.log("include", include);
 
   //parse where
   let where = {};
@@ -34,6 +86,7 @@ export function parseQuery(query) {
   console.log("where", where);
 
   return {
+    ...(Object.keys(include).length > 0 && { include }),
     ...(Object.keys(select).length > 0 && { select }),
     ...(Object.keys(where).length > 0 && { where }),
   };
@@ -103,8 +156,8 @@ export function checkFields(allowedFields, fields, response) {
       filteredDict[key] = fields[key];
       continue;
     }
-    console.error("Invalid key in fields");
-    console.error(key);
+    //console.error("Invalid key in fields");
+    //console.error(key);
   }
 
   //expected input should be like that:
@@ -171,14 +224,7 @@ export const getById =
   async (req, res) => {
     try {
       const { id } = req.params;
-      if (!parseInt(id)) {
-        return serverError(
-          res,
-          "Invalid id type provided, id not int",
-          "Bad request, do you have ID in correct format?",
-          400
-        );
-      }
+      if (!parseNumberElseError(id, "id", res)) return;
 
       const item = await itemExists(id, model, optionals);
 
@@ -198,6 +244,12 @@ export const getAll =
   async (req, res) => {
     try {
       const totalItems = await model.count();
+
+      if (!parseNumberElseError(page, "page", res)) return;
+      if (!parseNumberElseError(pageSize, "pageSize", res)) return;
+
+      if (pageSize > totalItems) pageSize = totalItems;
+
       const items = await model.findMany({
         ...optionals,
         orderBy: orderBy,
@@ -207,8 +259,8 @@ export const getAll =
       res.json({
         totalItems: totalItems,
         totalPages: Math.ceil(totalItems / pageSize),
-        currentPage: page,
-        pageSize: pageSize,
+        currentPage: parseInt(page),
+        pageSize: parseInt(pageSize),
         items: items,
       });
     } catch (error) {
