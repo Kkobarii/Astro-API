@@ -34,17 +34,18 @@ function parseNumberElseError(number, name, res) {
 export function parseQuery(query, res) {
   //parse select
   if (Object.keys(query).length === 0) {
-    return null;
+    return {};
   }
 
   if (query.select && query.include) {
     //console.error("Invalid query");
-    return serverError(
+    serverError(
       res,
       "Invalid query",
       "You can't use select and include at the same time",
       400
     );
+    return false;
   }
 
   console.log("query", query);
@@ -72,7 +73,11 @@ export function parseQuery(query, res) {
   Object.entries(query).forEach(([key, element]) => {
     console.log("key and element:", key, element);
     if (!Array.isArray(element)) {
-      where[key] = { equals: element };
+      let [operator, value] = element.split(":");
+      console.log("operator and value", operator, value);
+      if (!where[key]) where[key] = {};
+      if (!where[key][operator]) where[key][operator] = {};
+      where[key][operator] = value;
       return;
     }
     element.forEach((element) => {
@@ -176,11 +181,12 @@ export function checkFields(allowedFields, fields, response) {
     }
   }
   if (errors.length > 0) {
-    return response.status(400).json({
+    response.status(400).json({
       error: "Invalid fields in where clause",
       invalidFields: errors,
       acceptedFields: allowedFields,
     });
+    return false;
   }
   return true;
 }
@@ -243,7 +249,7 @@ export const getAll =
   (model, optionals = null, orderBy = { id: "asc" }, page = 1, pageSize = 5) =>
   async (req, res) => {
     try {
-      const totalItems = await model.count();
+      const totalItems = await model.count(); //TODO real count
 
       if (!parseNumberElseError(page, "page", res)) return;
       if (!parseNumberElseError(pageSize, "pageSize", res)) return;
