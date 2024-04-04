@@ -6,6 +6,11 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 const requiredFields = ["name", "type", "size", "difficulty", "sun", "wind"];
+const allowedFields = [
+  ...Object.keys(prisma.planet.fields),
+  "resources",
+  "gases",
+];
 
 // GET all
 router.get(
@@ -18,13 +23,14 @@ router.get(
 
 // GET one
 router.get("/:id", async (req, res) => {
-  const optionals = {
-    select: { id: true, name: true, resources: true },
-    //include: { resources: true },
-    where: { id: 1 },
-  };
+  console.log(req.query);
 
-  crud.getById(prisma.planet, optionals)(req, res);
+  const optional = crud.parseQuery(req.query);
+  if (!crud.checkFields(allowedFields, optional, res)) return;
+
+  console.log(optional);
+
+  crud.getById(prisma.planet, optional)(req, res);
 });
 
 // POST

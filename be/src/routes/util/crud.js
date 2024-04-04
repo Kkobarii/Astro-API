@@ -2,6 +2,40 @@
 
 const allowedSelect = ["select", "include", "where"];
 
+export function parseQuery(query) {
+  //parse select
+  if (!query) {
+    return null;
+  }
+
+  let select = {};
+  query.select.forEach((element) => {
+    select[element] = true;
+  });
+  delete query.select;
+
+  //parse where
+  let where = {};
+
+  Object.entries(query).forEach(([key, element]) => {
+    console.log("key and element:", key, element);
+    element.forEach((element) => {
+      let [operator, value] = element.split(":");
+      console.log("operator and value", operator, value);
+      if (!where[key]) where[key] = {};
+
+      if (!where[key][operator]) where[key][operator] = {};
+      where[key][operator] = value;
+    });
+  });
+  console.log("where", where);
+
+  return {
+    ...(Object.keys(select).length > 0 && { select }),
+    ...(Object.keys(where).length > 0 && { where }),
+  };
+}
+
 /**
  * classical server error 500
  *
@@ -49,13 +83,13 @@ function hasRequiredFields(requiredFields, request, response) {
 
 //TODO test this fckng shit with something bcs im going insane
 /**
- * checks if provided fields are valid against model from prisma
- * @param {*} model prisma model
+ * checks if provided fields are valid against model from prisma //TODO not against model rather predefined allowed fields
+ * @param {*} allowedFields allowed fields
  * @param {*} fields fields to check
  * @param {*} response response object
  * @returns true if all fields are valid, otherwise response.status(400) with invalid fields
  */
-function checkFields(model, fields, response) {
+export function checkFields(allowedFields, fields, response) {
   if (!fields) {
     return true;
   }
@@ -77,7 +111,6 @@ function checkFields(model, fields, response) {
   //  where: {id: 1}
   // }
 
-  const allowedFields = Object.keys(model.fields);
   let errors = [];
   for (let keyword in filteredDict) {
     for (let field in filteredDict[keyword]) {
@@ -122,30 +155,40 @@ function itemExists(id, model, optionals = null) {
   });
 }
 
-export const getById = (model, optionals) => async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!parseInt(id)) {
-      return serverError(
-        res,
-        "Invalid id type provided, id not int",
-        "Bad request, do you have ID in correct format?",
-        400
-      );
+/**
+ *
+ * @param {*} model
+ * @param {*} optionals
+ * @param {*} req id is getting from req.params but
+ * @param {*} res
+ * @returns
+ */
+export const getById =
+  (model, optionals = null) =>
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      if (!parseInt(id)) {
+        return serverError(
+          res,
+          "Invalid id type provided, id not int",
+          "Bad request, do you have ID in correct format?",
+          400
+        );
+      }
+
+      const item = await itemExists(id, model, optionals);
+
+      if (!item) {
+        return notFoundError(res, id);
+      }
+
+      console.log(id, item);
+      return res.json(item);
+    } catch (error) {
+      return serverError(res, error);
     }
-
-    const item = await itemExists(id, model, optionals);
-
-    if (!item) {
-      return notFoundError(res, id);
-    }
-
-    console.log(id, item);
-    return res.json(item);
-  } catch (error) {
-    return serverError(res, error);
-  }
-};
+  };
 
 export const getAll =
   (model, optionals = null, orderBy = { id: "asc" }, page = 1, pageSize = 5) =>
@@ -158,8 +201,6 @@ export const getAll =
         skip: page * pageSize - pageSize,
         take: pageSize,
       });
-      //res.json(items);
-      //pagination
       res.json({
         totalItems: totalItems,
         totalPages: Math.ceil(totalItems / pageSize),
