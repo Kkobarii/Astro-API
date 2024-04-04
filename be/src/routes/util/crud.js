@@ -19,11 +19,14 @@ export function parseQuery(query) {
 
   Object.entries(query).forEach(([key, element]) => {
     console.log("key and element:", key, element);
+    if (!Array.isArray(element)) {
+      where[key] = { equals: element };
+      return;
+    }
     element.forEach((element) => {
       let [operator, value] = element.split(":");
       console.log("operator and value", operator, value);
       if (!where[key]) where[key] = {};
-
       if (!where[key][operator]) where[key][operator] = {};
       where[key][operator] = value;
     });
