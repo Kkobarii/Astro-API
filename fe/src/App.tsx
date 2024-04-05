@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-import {FirstComponent} from './components/Component'
-import {PropsComponent} from './components/Component'
-import UserList from './hooks/Hook'
+import { FirstComponent } from "./components/Component";
+import { PropsComponent } from "./components/Component";
+import UserList from "./hooks/Hook";
 
 function App() {
   return (
@@ -27,7 +27,6 @@ function App() {
       <PropsComponent firstName="Jožko" lastName="Mrkvička" />
       <PropsComponent firstName="Žožko" lastName="Placička" />
       <PropsComponent firstName="Božo" lastName="Ředkvička" />
-      
     </div>
   );
 }

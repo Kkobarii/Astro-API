@@ -29,10 +29,13 @@ const useUsers = (): UsersState => {
         const users = await response.json();
         setState({ users, loading: false, error: null });
         throw new Error("This is an custom super čuper error");
-        
       } catch (error: any) {
         console.error(error);
-        setState({ users: null, loading: false, error: "something went wrong" });
+        setState({
+          users: null,
+          loading: false,
+          error: "something went wrong",
+        });
       }
     };
 
