@@ -115,8 +115,8 @@ export function parsePagination(query) {
 
   // todo order by parsing?
 
-  if (!parseNumberElseError(page, "page", res)) return;
-  if (!parseNumberElseError(pageSize, "pageSize", res)) return;
+  if (!parseNumberElseError(page, "page")) return;
+  if (!parseNumberElseError(pageSize, "pageSize")) return;
 
   page = parseInt(page);
   pageSize = parseInt(pageSize);
