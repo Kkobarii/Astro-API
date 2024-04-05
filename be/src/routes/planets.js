@@ -16,22 +16,13 @@ const allowedFields = [
 router.get("/", async (req, res) => {
   console.log(req.query);
 
-  //TODO this into function or
-  const page = req.query.page || 1;
-  const pageSize = req.query.pageSize || 5;
-  const orderBy = req.query.orderBy || { id: "asc" };
-
-  delete req.query.page;
-  delete req.query.pageSize;
-  delete req.query.orderBy;
+  const paginationParams = crud.parsePagination(req.query);
 
   const optional = crud.parseQuery(req.query, res);
   if (!optional) return;
   if (!crud.checkFields(allowedFields, optional, res)) return;
 
-  console.log(optional);
-  console.log("reeeee optional: ", optional);
-  crud.getAll(prisma.planet, optional, orderBy, page, pageSize)(req, res);
+  crud.getAll(prisma.planet, optional, paginationParams)(req, res);
 });
 
 // GET one
@@ -39,8 +30,6 @@ router.get("/:id", async (req, res) => {
   const optional = crud.parseQuery(req.query, res);
   if (typeof optional != "object") return;
   if (!crud.checkFields(allowedFields, optional, res)) return;
-
-  console.log("reeeee optional: ", optional);
 
   crud.getById(prisma.planet, optional)(req, res);
 });

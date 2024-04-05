@@ -3,7 +3,7 @@
 const allowedSelect = ["select", "include", "where"];
 
 /**
- * better tryparse
+ * Better tryparse.
  * @param {*} number variable which should be evaluated
  * @param {*} name name of the variable to error message
  * @param {*} res response for serverError
@@ -25,11 +25,13 @@ function parseNumberElseError(number, name, res) {
 }
 
 /**
+ * Parses query from request.
  * not sure how its working even if its working
- *
  * anyway it doesnt like pagination input //TODO mby add it to it not sure
- * @param {*} query
- * @returns
+ *
+ * @param {*} query query from request
+ * @param {*} res response object
+ * @returns object with select, include and where
  */
 export function parseQuery(query, res) {
   //parse select
@@ -98,6 +100,35 @@ export function parseQuery(query, res) {
 }
 
 /**
+ * Parses pagination from query.
+ * @param {*} query query from request
+ * @returns object with page, pageSize and orderBy
+ */
+export function parsePagination(query) {
+  var page = query.page || 1;
+  var pageSize = query.pageSize || 5;
+  const orderBy = query.orderBy || { id: "asc" };
+
+  delete query.page;
+  delete query.pageSize;
+  delete query.orderBy;
+
+  // todo order by parsing?
+
+  if (!parseNumberElseError(page, "page", res)) return;
+  if (!parseNumberElseError(pageSize, "pageSize", res)) return;
+
+  page = parseInt(page);
+  pageSize = parseInt(pageSize);
+
+  return {
+    page,
+    pageSize,
+    orderBy,
+  };
+}
+
+/**
  * classical server error 500
  *
  * prints error to console and returns 500 status
@@ -119,7 +150,7 @@ function serverError(res, e, message = "Internal Server error", status = 500) {
 }
 
 /**
- * check if there are required fields in body of request
+ * Check if there are required fields in body of request.
  * @param {*} requiredFields
  * @param {*} request
  * @param {*} response
@@ -144,7 +175,7 @@ function hasRequiredFields(requiredFields, request, response) {
 
 //TODO test this fckng shit with something bcs im going insane
 /**
- * checks if provided fields are valid against model from prisma //TODO not against model rather predefined allowed fields
+ * Checks if provided fields are valid against model from prisma. //TODO not against model rather predefined allowed fields
  * @param {*} allowedFields allowed fields
  * @param {*} fields fields to check
  * @param {*} response response object
@@ -191,6 +222,12 @@ export function checkFields(allowedFields, fields, response) {
   return true;
 }
 
+/**
+ * Returns a 404 error for an item not found.
+ * @param {Object} res - The response object.
+ * @param {number} id - The id of the item not found.
+ * @returns {Object} The response object with a 404 status.
+ */
 function notFoundError(res, id) {
   serverError(
     res,
@@ -201,10 +238,11 @@ function notFoundError(res, id) {
 }
 
 /**
- * check if item exists in model
- * @param {*} id must be INT
- * @param {*} model
- * @returns object if found, null if not found (idk if null if not found)
+ * Checks if an item exists in a model.
+ * @param {number} id - The id of the item to check.
+ * @param {Object} model - The model to check the item in.
+ * @param {Object} [optionals] - Optional parameters for the query.
+ * @returns {Object} The item if it exists, otherwise null.
  */
 function itemExists(id, model, optionals = null) {
   console.log("optionals", optionals);
@@ -218,12 +256,10 @@ function itemExists(id, model, optionals = null) {
 }
 
 /**
- *
- * @param {*} model
- * @param {*} optionals
- * @param {*} req id is getting from req.params but
- * @param {*} res
- * @returns
+ * Gets an item by id from a model.
+ * @param {Object} model - The model to get the item from.
+ * @param {Object} [optionals] - Optional parameters for the query.
+ * @returns {Function} A function to be used in a route.
  */
 export const getById =
   (model, optionals = null) =>
@@ -245,14 +281,30 @@ export const getById =
     }
   };
 
+/**
+ * Gets all items from a model.
+ * @param {Object} model - The model to get items from.
+ * @param {Object} [optionals] - Optional parameters for the query.
+ * @param {string} [orderBy] - The field to order the items by.
+ * @param {number} [page=1] - The page number to get.
+ * @param {number} [pageSize=10] - The number of items per page.
+ * @returns {Function} A function to be used in a route.
+ */
 export const getAll =
-  (model, optionals = null, orderBy = { id: "asc" }, page = 1, pageSize = 5) =>
+  (
+    model,
+    optionals = null,
+    paginationParams = {
+      page: 1,
+      pageSize: 10,
+      orderBy: { id: "asc" },
+    }
+  ) =>
   async (req, res) => {
     try {
       const totalItems = await model.count(); //TODO real count
 
-      if (!parseNumberElseError(page, "page", res)) return;
-      if (!parseNumberElseError(pageSize, "pageSize", res)) return;
+      const { page, pageSize, orderBy } = paginationParams;
 
       if (pageSize > totalItems) pageSize = totalItems;
 
@@ -274,6 +326,12 @@ export const getAll =
     }
   };
 
+/**
+ * Creates a new item in a model.
+ * @param {Object} model - The model to create the item in.
+ * @param {string[]} requiredFields - The required fields for the item.
+ * @returns {Function} A function to be used in a route.
+ */
 export const create = (model, requiredFields) => async (req, res) => {
   try {
     if (!hasRequiredFields(requiredFields, req, res)) {
@@ -288,6 +346,12 @@ export const create = (model, requiredFields) => async (req, res) => {
   }
 };
 
+/**
+ * Updates an item in a model.
+ * @param {Object} model - The model to update the item in.
+ * @param {string[]} requiredFields - The required fields for the item.
+ * @returns {Function} A function to be used in a route.
+ */
 export const update = (model, requiredFields) => async (req, res) => {
   try {
     if (!hasRequiredFields(requiredFields, req, res)) {
@@ -299,7 +363,7 @@ export const update = (model, requiredFields) => async (req, res) => {
       return serverError(
         res,
         "Invalid id type provided",
-        "Bad request, do you have ID in correct format?",
+        "Bad request, do you have ID in the correct format?",
         400
       );
     }
@@ -322,6 +386,11 @@ export const update = (model, requiredFields) => async (req, res) => {
   }
 };
 
+/**
+ * Removes an item from a model.
+ * @param {Object} model - The model to remove the item from.
+ * @returns {Function} A function to be used in a route.
+ */
 export const remove = (model) => async (req, res) => {
   try {
     const { id } = req.params;
