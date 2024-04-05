@@ -1,6 +1,6 @@
 import React from "react";
 
-const Url = "http://localhost:3000/planets"
+const Url = "http://localhost:4000/planets"
 
 const Planet: React.FC<{}> = () => {
   const [planets, setPlanets] = React.useState([]);
@@ -10,7 +10,9 @@ const Planet: React.FC<{}> = () => {
     fetch(Url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data)
+        setPlanets(data.items);
+        setLoading(false);
       });
   }, []);
 
