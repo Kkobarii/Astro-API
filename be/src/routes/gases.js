@@ -5,11 +5,33 @@ import * as crud from "./util/crud.js";
 const router = express.Router();
 const prisma = new PrismaClient();
 
+const requiredFields = ["name", "byteValue"];
+const allowedFields = [
+  ...Object.keys(prisma.resource.fields),
+  "planets",
+];
+
 // GET all
-router.get("/", crud.getAll(prisma.gas));
+router.get("/", async (req, res) => {
+  console.log(req.query);
+
+  const paginationParams = crud.parsePagination(req.query);
+
+  const optional = crud.parseQuery(req.query, res);
+  if (!optional) return;
+  if (!crud.checkFields(allowedFields, optional, res)) return;
+
+  crud.getAll(prisma.gas, optional, paginationParams)(req, res);
+});
 
 // GET one
-router.get("/:id", crud.getById(prisma.gas));
+router.get("/:id", async (req, res) => {
+  const optional = crud.parseQuery(req.query, res);
+  if (typeof optional != "object") return;
+  if (!crud.checkFields(allowedFields, optional, res)) return;
+
+  crud.getById(prisma.gas, optional)(req, res);
+});
 
 // POST
 router.post("/", crud.create(prisma.gas));

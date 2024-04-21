@@ -304,9 +304,10 @@ export const getAll =
     try {
       const totalItems = await model.count(); //TODO real count
 
-      const { page, pageSize, orderBy } = paginationParams;
+      let { page, pageSize, orderBy } = paginationParams;
 
       if (pageSize > totalItems) pageSize = totalItems;
+      if (pageSize == -1) pageSize = totalItems;
 
       const items = await model.findMany({
         ...optionals,

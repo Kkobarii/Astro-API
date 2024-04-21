@@ -36,3 +36,80 @@
     transform: rotate(360deg);
   }
 }
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex-grow: 1;
+}
+
+.footer {
+  background-color: #f0f0f0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+
+.astroapi-logo {
+  height: 4em;
+  pointer-events: none;
+  margin: 20px;
+}
+
+.detail {
+  padding: 20px;
+}
+
+.image {
+  height: 15em;
+  width: 15em;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  background-color: #eeeeee;
+}
+
+.planet-icon { 
+  width: 30px;
+}
+
+.icon { 
+  width: 50px;
+}
+
+.icon-name {
+  margin: 0px;
+  margin-left: 10px;
+  color: black;
+}
+
+.infos { 
+  display: flex; 
+  flex-direction: row; 
+  align-items: center;
+}
+
+.infos > p, .infos > h3 {
+  margin: 0px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.žožo:hover {
+  text-decoration: line-through;
+}
+
+.name {
+  margin: 20px;
+  text-align: left;
+  font-size: xxx-large;
+}
+
+.description {
+  margin: 20px;
+  text-align: left;
+  font-size: larger;
+}
