@@ -2,11 +2,11 @@
 
 import { PrismaClient } from "@prisma/client";
 import { DropAll } from "./drop.js";
-import fs from 'fs';
+import fs from "fs";
 
 const prisma = new PrismaClient();
 
-const file = fs.readFileSync('be/scripts/data.json', 'utf-8');
+const file = fs.readFileSync("be/scripts/data.json", "utf-8");
 const data = JSON.parse(file);
 
 const CreatePlanet = async (p) => {
@@ -81,7 +81,7 @@ const CreateGas = async (g) => {
 async function seedDatabase() {
   try {
     await DropAll();
-    console.log("\nSeeding database...")
+    console.log("\nSeeding database...");
 
     console.log("\nCreating resources...");
     await Promise.all(data.resources.map(CreateResource));
