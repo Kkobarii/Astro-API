@@ -8,9 +8,12 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../App.css";
 
-const Url = "http://localhost:4000/resources";
+import { Resource } from "../../misc/interfaces";
+
+const Url = process.env.REACT_APP_BACKEND_URL + "/resources";
 
 export function loader() {
+  console.log(Url);
   return fetch(Url)
     .then((response) => response.json())
     .then((data) => {
@@ -20,18 +23,12 @@ export function loader() {
     });
 }
 
-interface Resource {
-  id: string;
-  name: string;
-  iconUrl: string;
-  [key: string]: any; // for any other properties that a resource might have
-}
 
 
 export function Resources() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
-  const Url = 'http://localhost:4000/resources?pageSize=7';
+  const Url = process.env.REACT_APP_BACKEND_URL + "/resources?pageSize=7";
 
   useEffect(() => {
     fetch(Url)

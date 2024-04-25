@@ -23,6 +23,9 @@ import {
 } from "./components/gases/GasDetail";
 import { Home } from "./components/home/Home";
 
+import { PlanetForm } from "./components/forms/PlantesForm";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +59,7 @@ const router = createBrowserRouter([
           element: <GasDetail />,
         },
       ], },
+      { path: "forms", element: <PlanetForm />,     },
     ],
   },
 ]);

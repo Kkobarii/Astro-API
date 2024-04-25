@@ -8,7 +8,9 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../App.css";
 
-const Url = "http://localhost:4000/planets";
+import { Planet } from "../../misc/interfaces";
+
+const Url = process.env.REACT_APP_BACKEND_URL+"/planets";
 
 export function loader() {
   return fetch(Url)
@@ -20,18 +22,11 @@ export function loader() {
     });
 }
 
-interface Planet {
-  id: string;
-  name: string;
-  iconUrl: string;
-  [key: string]: any; // for any other properties that a planet might have
-}
-
 
 export function Planets() {
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [loading, setLoading] = useState(true);
-  const Url = 'http://localhost:4000/planets?pageSize=-1';
+  const Url = process.env.REACT_APP_BACKEND_URL+'/planets?pageSize=-1';
 
   useEffect(() => {
     fetch(Url)

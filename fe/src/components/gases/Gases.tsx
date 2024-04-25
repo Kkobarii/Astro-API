@@ -8,7 +8,9 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../App.css";
 
-const Url = "http://localhost:4000/gases";
+import { Gas } from "../../misc/interfaces";
+
+const Url = process.env.REACT_APP_BACKEND_URL+"/gases";
 
 export function loader() {
   return fetch(Url)
@@ -20,18 +22,14 @@ export function loader() {
     });
 }
 
-interface Gas {
-  id: string;
-  name: string;
-  iconUrl: string;
-  [key: string]: any; // for any other properties that a gas might have
-}
+
 
 
 export function Gases() {
   const [gases, setGases] = useState<Gas[]>([]);
   const [loading, setLoading] = useState(true);
-  const Url = 'http://localhost:4000/gases?pageSize=7';
+  const Url = process.env.REACT_APP_BACKEND_URL+"/gases?pageSize=7";
+  console.log(Url);
 
   useEffect(() => {
     fetch(Url)

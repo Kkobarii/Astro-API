@@ -3,10 +3,10 @@ import "../../App.css";
 import { Button, Container, Divider, Paper, Stack, Table, TableBody, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { StyledTableCell, StyledTableRow } from "../styled/StyledTable";
 
-const Url = "http://localhost:4000/";
+const Url = process.env.REACT_APP_BACKEND_URL;
 
 export function loader({ params }: any) {
-  const planetUrl = Url + "planets/" + params.planetId + "?include=resources&include=gases";
+  const planetUrl = Url + "/planets/" + params.planetId + "?include=resources&include=gases";
 
   // Fetch planet data
   return fetch(planetUrl)
@@ -17,12 +17,12 @@ export function loader({ params }: any) {
       
       // Fetch resources associated with the planet
       const resourcePromises = resourceIds.map((resourceId: any) =>
-        fetch(Url + "resources/" + resourceId).then((response) => response.json())
+        fetch(Url + "/resources/" + resourceId).then((response) => response.json())
       );
 
       // Fetch gases associated with the planet
       const gasPromises = gasIds.map((gasId: any) =>
-        fetch(Url + "gases/" + gasId).then((response) => response.json())
+        fetch(Url + "/gases/" + gasId).then((response) => response.json())
       );
 
       // Wait for all promises to resolve

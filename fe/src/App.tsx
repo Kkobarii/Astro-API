@@ -8,7 +8,6 @@ import logo from "./logo.png";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Divider, Tooltip } from "@mui/material";
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -37,6 +36,9 @@ export function App() {
             </Button>
             <Button color="inherit" component={Link} to="/gases">
               Gases
+            </Button>
+            <Button color="inherit" component={Link} to="/forms">
+              Forms
             </Button>
           </Toolbar>
         </AppBar>
