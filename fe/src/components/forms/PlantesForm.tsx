@@ -152,7 +152,33 @@ export function PlanetForm(){
 
                 {/* one or many resources with checkboxes */}
                
-
+                <Container>
+                <Typography variant="h5" gutterBottom style={{marginTop: "1em"}}>Resources:</Typography>
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                    <TableHead>
+                        <StyledTableRow>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell>Location</StyledTableCell>
+                        </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                        {resourcesOptions.map((resource: Resource) => (
+                        <StyledTableRow key={resource.id}>
+                            <StyledTableCell>
+                                <Checkbox  />
+                            </StyledTableCell>
+                            <StyledTableCell>{resource.name} </StyledTableCell>
+                            <StyledTableCell>
+                                <Input id="location" value={resource.location} />
+                            </StyledTableCell>
+                        </StyledTableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </TableContainer>
+                </Container>
 
 
                 <Button type="submit" className='.MuiFormControl-fullWidth' >Submit</Button>
