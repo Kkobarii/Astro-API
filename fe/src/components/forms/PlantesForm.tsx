@@ -11,19 +11,16 @@ import { Gas, Planet, Resource } from "../../misc/interfaces";
 const Url = process.env.REACT_APP_BACKEND_URL;
 
 export function PlanetForm(){
-    const [name, setName] = useState<string>();
-    const [description, setDescription] = useState<string>();
-    const [type , setType] = useState<string>();
-    const [size, setSize] = useState<string>();
-    const [difficulty, setDifficulty] = useState<string>();
-    const [sun , setSun] = useState<string>();
-    const [wind, setWind] = useState<string>();
+    const [name, setName] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [type , setType] = useState<string>("");
+    const [size, setSize] = useState<string>("Medium");
+    const [difficulty, setDifficulty] = useState<string>("Medium");
+    const [sun , setSun] = useState<string>("Medium");
+    const [wind, setWind] = useState<string>("Medium");
 
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        console.log(name, description, type, size, difficulty, sun, wind);
-    }
+    
 
 
     const sizeOptions = ['Small', 'Medium', 'Large'];
@@ -59,6 +56,11 @@ export function PlanetForm(){
     console.log(resourcesOptions);
 
 
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        console.log(name, description, type, size, difficulty, sun, wind);
+    }
+
 
     return (
             <form onSubmit={handleSubmit}>
@@ -79,7 +81,7 @@ export function PlanetForm(){
 
                 <FormControl className='.MuiFormControl-fullWidth'>
                     <InputLabel htmlFor="size"> Size: </InputLabel>
-                    <Select id="size" value={size} label="Size"  defaultValue='Medium' onChange={e => setSize(e.target.value)}>
+                    <Select id="size" value={size} label="Size"   onChange={e => setSize(e.target.value)}>
                         {sizeOptions.map((sizeOption) => (
                         <MenuItem key={sizeOption} value={sizeOption}>
                             {sizeOption}
@@ -90,7 +92,7 @@ export function PlanetForm(){
 
                 <FormControl className='.MuiFormControl-fullWidth'>
                     <InputLabel htmlFor="difficulty"> Difficulty: </InputLabel>
-                    <Select id="difficulty" value={difficulty} label="Difficulty" defaultValue='Medium' onChange={e => setDifficulty(e.target.value)}>
+                    <Select id="difficulty" value={difficulty} label="Difficulty"  onChange={e => setDifficulty(e.target.value)}>
                         {difficultyOptions.map((difficultyOption) => (
                         <MenuItem key={difficultyOption} value={difficultyOption}>
                             {difficultyOption}
@@ -112,7 +114,7 @@ export function PlanetForm(){
 
                 <FormControl className='.MuiFormControl-fullWidth'>
                     <InputLabel htmlFor="wind"> Wind: </InputLabel>
-                    <Select id="wind" value={wind} label="Wind" defaultValue='Medium' onChange={e => setWind(e.target.value)}>
+                    <Select id="wind" value={wind} label="Wind"  onChange={e => setWind(e.target.value)}>
                         {windOptions.map((windOption) => (
                         <MenuItem key={windOption} value={windOption}>
                             {windOption}
