@@ -1,6 +1,7 @@
 import { PlanetFormProps } from "../../misc/interfaces";
 import { PlanetForm } from "./PlanetForm";
 import { Planet } from "../../misc/interfaces";
+import ts from "typescript";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
@@ -35,5 +36,15 @@ export function CreatePlanet() {
       });
   };
 
-  return <PlanetForm handleSubmit={handleSubmit} />;
+  return <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <h1>Create planet</h1>
+    <PlanetForm handleSubmit={handleSubmit} />
+  </div>;
 }

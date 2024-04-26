@@ -48,7 +48,7 @@ Forntend is actually written in Typescript React and backend in Javascript (I fo
   - [x] Connection to the DB via a ORM library
   - [x] Error handling
 - 5 Express REST API layer
-  - [ ] Valid API up to the REST specification for all operations on resources
+  - [x] Valid API up to the REST specification for all operations on resources
   - [x] Status handling & error messages
 
 **Front-end (React):**
@@ -61,13 +61,17 @@ Forntend is actually written in Typescript React and backend in Javascript (I fo
   - [x] Split your application into several components. Don’t make huge ones.
 - 5 Client-side routing
   - [x] There should be proper routes for all pages
-  - [ ] Best practices according to react router
+  - [x] Best practices according to react router
 - 5 Data fetching
-  - [ ] Custom API functions
-  - [ ] Proper loading states
-  - [ ] Proper error handling / states
+  - [x] Custom API functions
+  - [x] Proper loading states
+  - [x] Proper error handling / states
 
 **Overall:**
 
 - 5 Code quality / project setup
   - [x] README, Prettier, Able to run the whole project easily!
+
+## Note
+
+We ran out of time sadly... But we tried really hard to make it work 😅

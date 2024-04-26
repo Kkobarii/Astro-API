@@ -230,7 +230,7 @@ export function PlanetForm({
                 </Table>
               </TableContainer>
             </Container>
-            <Button type="submit" className=".MuiFormControl-fullWidth">
+            <Button type="submit" className=".MuiFormControl-fullWidth" variant="contained" color="primary">
               Submit
             </Button>
           </Form>
