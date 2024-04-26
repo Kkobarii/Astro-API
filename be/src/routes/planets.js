@@ -5,6 +5,7 @@ import * as crud from "./util/crud.js";
 const router = express.Router();
 const prisma = new PrismaClient();
 
+//prisma doesnt support getting optional fields nor @unique :(
 const requiredFields = ["name", "type", "size", "difficulty", "sun", "wind"];
 const allowedFields = [
   ...Object.keys(prisma.planet.fields),
@@ -36,11 +37,15 @@ router.get("/:id", async (req, res) => {
 
 // POST
 router.post("/", async (req, res) => {
-  let gases = req.body.gases;
-  let resources = req.body.resources;
+  let gases = {};
+  let resources = {};
 
-  delete req.body.gases;
-  delete req.body.resources;
+  gases.body = req.body.gases;
+  resources.body = req.body.resources;
+
+  if ("gases" in req.body) delete req.body.gases;
+  if ("resources" in req.body) delete req.body.resources;
+  if ("id" in req.body) delete req.body.id;
 
   if (req.body.iconUrl == null || req.body.iconUrl == undefined) {
     req.body.iconUrl =
@@ -51,21 +56,24 @@ router.post("/", async (req, res) => {
       "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/35/Landings_Zones.jpg";
   }
 
-  if (gases) {
-    crud.create(prisma.planetGas, ["partsPerUnit"])(gases, res);
-  }
-  if (resources) {
-    crud.create(prisma.planetResource, ["location"])(resources, res);
-  }
-
   crud.create(prisma.planet, requiredFields)(req, res);
+
+  if (gases.body) {
+    gases.body.forEach((gas) => {
+      crud.create(prisma.planetGas, [])(gas, res);
+    });
+  }
+  if (resources.body) {
+    resources.body.forEach((resource) => {
+      let res = {};
+      res.body = resource;
+      crud.create(prisma.planetResource, [])(res, res);
+    });
+  }
 });
 
 // PUT
 router.put("/:id", async (req, res) => {
-  let gases = req.body.gases;
-  let resources = req.body.resources;
-
   crud.update(prisma.planet, requiredFields)(req, res);
 });
 

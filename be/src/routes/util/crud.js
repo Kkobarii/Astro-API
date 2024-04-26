@@ -32,20 +32,16 @@ function parseNumberElseError(number, name, res) {
  * @returns
  */
 async function checkUniqueFields(model, fields, req, res) {
-  console.log("unique fields", fields);
   let errors = [];
   for (let field in fields) {
-    console.log("field", { [fields[field]]: req.body[fields[field]] });
     let fetched = await model.findMany({
       where: { [fields[field]]: req.body[fields[field]] },
     });
-    console.log("fetched", fetched);
     if (fetched.length !== 0) {
       errors.push({ [fields[field]]: req.body[fields[field]] });
     }
   }
   if (errors.length !== 0) {
-    console.log("errors is not null so cajk", errors);
     return (
       false,
       serverError(
@@ -95,7 +91,6 @@ export function parseQuery(query, res) {
   }
 
   if (query.select && query.include) {
-    //console.error("Invalid query");
     serverError(
       res,
       "Invalid query",
@@ -208,13 +203,12 @@ function hasRequiredFields(requiredFields, request, response) {
   //return requiredFields.every((field) => data[field]);
   var errors = [];
   for (let field of requiredFields) {
-    console.log("hasRequired fields field", field);
     if (!request.body.hasOwnProperty(field)) {
       errors.push(field);
     }
   }
   if (errors.length > 0) {
-    console.log("errors in has required ", errors);
+    console.error("Item not created, missing required fields");
     return (
       false,
       response.status(400).json({
@@ -245,8 +239,6 @@ export function checkFields(allowedFields, fields, response) {
       filteredDict[key] = fields[key];
       continue;
     }
-    //console.error("Invalid key in fields");
-    //console.error(key);
   }
 
   //expected input should be like that:
@@ -299,7 +291,6 @@ function notFoundError(res, id) {
  */
 function itemExists(id, model, optionals = null) {
   console.log("optionals", optionals);
-
   return model.findUnique({
     where: {
       id: parseInt(id),
@@ -368,6 +359,7 @@ export const getAll =
         skip: page * pageSize - pageSize,
         take: pageSize,
       });
+      console.log("items", items);
       res.json({
         totalItems: totalItems,
         totalPages: Math.ceil(totalItems / pageSize),
@@ -392,7 +384,8 @@ export const getAll =
 export const create =
   (model, requiredFields, uniqueFields = ["name"]) =>
   async (req, res) => {
-    delete req.body.id;
+    console.log("req.body", req.body);
+
     try {
       if (!(await hasRequiredFields(requiredFields, req, res))) return;
       if (!(await checkUniqueFields(model, uniqueFields, req, res))) return;
@@ -400,6 +393,7 @@ export const create =
       const item = await model.create({
         data: req.body,
       });
+      console.log("item", item);
       res.json(item).status(201);
     } catch (error) {
       console.error("ERROR:", error);
@@ -417,9 +411,8 @@ export const update = (model, requiredFields) => async (req, res) => {
   requiredFields.push("id");
   console.log("req.body", req.body);
   try {
-    if (!hasRequiredFields(requiredFields, req, res)[0]) return;
+    if (!(await hasRequiredFields(requiredFields, req, res))) return;
 
-    console.log("tu nemám být");
     const { id } = req.params;
     if (!parseInt(id)) {
       return serverError(
@@ -430,7 +423,6 @@ export const update = (model, requiredFields) => async (req, res) => {
       );
     }
 
-    //not sure if this works pls test it
     if (!(await itemExists(id, model))) {
       return notFoundError(res, id);
     }
@@ -441,7 +433,7 @@ export const update = (model, requiredFields) => async (req, res) => {
       },
       data: req.body,
     });
-
+    console.log("item", item);
     res.json(item).status(200);
   } catch (error) {
     console.error("ERROR:", error);
