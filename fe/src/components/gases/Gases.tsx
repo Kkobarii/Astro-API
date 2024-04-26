@@ -10,7 +10,7 @@ import "../../App.css";
 
 import { Gas } from "../../misc/interfaces";
 
-const Url = process.env.REACT_APP_BACKEND_URL+"/gases";
+const Url = process.env.REACT_APP_BACKEND_URL + "/gases";
 
 export function loader() {
   return fetch(Url)
@@ -22,13 +22,10 @@ export function loader() {
     });
 }
 
-
-
-
 export function Gases() {
   const [gases, setGases] = useState<Gas[]>([]);
   const [loading, setLoading] = useState(true);
-  const Url = process.env.REACT_APP_BACKEND_URL+"/gases?pageSize=7";
+  const Url = process.env.REACT_APP_BACKEND_URL + "/gases?pageSize=7";
   console.log(Url);
 
   useEffect(() => {
@@ -43,7 +40,9 @@ export function Gases() {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "20%", maxWidth: "15em" }}>
-        <List style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <List
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
           {gases.map((gas) => (
             // <ListItem />
             <ListItem
@@ -53,14 +52,24 @@ export function Gases() {
               to={`/gases/${gas.id}`}
               component={NavLink}
               // @ts-ignore
-              style={({isActive}) => isActive ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}}
+              style={({ isActive }) =>
+                isActive
+                  ? { backgroundColor: "lightgray" }
+                  : { backgroundColor: "white" }
+              }
             >
               <ListItemAvatar>
-                <Avatar style={{ backgroundColor: "white", width: "50px", height: "50px" }}>
+                <Avatar
+                  style={{
+                    backgroundColor: "white",
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
                   <img src={gas.iconUrl} alt={gas.name} className="icon" />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={gas.name} style={{ marginLeft: "20px"}} />
+              <ListItemText primary={gas.name} style={{ marginLeft: "20px" }} />
             </ListItem>
           ))}
         </List>
@@ -70,4 +79,4 @@ export function Gases() {
       </div>
     </div>
   );
-};
+}

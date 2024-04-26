@@ -10,7 +10,7 @@ import "../../App.css";
 
 import { Planet } from "../../misc/interfaces";
 
-const Url = process.env.REACT_APP_BACKEND_URL+"/planets";
+const Url = process.env.REACT_APP_BACKEND_URL + "/planets";
 
 export function loader() {
   return fetch(Url)
@@ -22,11 +22,10 @@ export function loader() {
     });
 }
 
-
 export function Planets() {
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [loading, setLoading] = useState(true);
-  const Url = process.env.REACT_APP_BACKEND_URL+'/planets?pageSize=-1';
+  const Url = process.env.REACT_APP_BACKEND_URL + "/planets?pageSize=-1";
 
   useEffect(() => {
     fetch(Url)
@@ -40,7 +39,9 @@ export function Planets() {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "20%", maxWidth: "15em" }}>
-        <List style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <List
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
           {planets.map((planet) => (
             // <ListItem />
             <ListItem
@@ -50,14 +51,31 @@ export function Planets() {
               to={`/planets/${planet.id}`}
               component={NavLink}
               // @ts-ignore
-              style={({isActive}) => isActive ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}}
+              style={({ isActive }) =>
+                isActive
+                  ? { backgroundColor: "lightgray" }
+                  : { backgroundColor: "white" }
+              }
             >
               <ListItemAvatar>
-                <Avatar style={{ backgroundColor: "white", width: "50px", height: "50px" }}>
-                  <img src={planet.iconUrl} alt={planet.name} className="planet-icon" />
+                <Avatar
+                  style={{
+                    backgroundColor: "white",
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <img
+                    src={planet.iconUrl}
+                    alt={planet.name}
+                    className="planet-icon"
+                  />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={planet.name} style={{ marginLeft: "20px"}} />
+              <ListItemText
+                primary={planet.name}
+                style={{ marginLeft: "20px" }}
+              />
             </ListItem>
           ))}
         </List>
@@ -67,4 +85,4 @@ export function Planets() {
       </div>
     </div>
   );
-};
+}

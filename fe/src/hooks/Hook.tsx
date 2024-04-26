@@ -50,9 +50,7 @@ function UserList() {
   const { users, loading, error } = useUsers();
 
   if (loading) {
-    return <Container style={{ textAlign: "center" }}>
-      Loading...
-    </Container>;
+    return <Container style={{ textAlign: "center" }}>Loading...</Container>;
   }
 
   if (error) {

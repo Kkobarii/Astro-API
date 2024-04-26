@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { Planet } from "../../misc/interfaces";
-import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import { on } from "events";
 
 interface DashboardProps {
@@ -57,9 +57,15 @@ const PlanetDashboard: FC<DashboardProps> = ({
                   variant="contained"
                   color="error"
                   onClick={() => {
-                    Confirm.show("Delete Planet", `Are you sure you want to delete ${planet.name}?`, "Yes", "No", () => {
-                      onDelete(planet.id);
-                    });
+                    Confirm.show(
+                      "Delete Planet",
+                      `Are you sure you want to delete ${planet.name}?`,
+                      "Yes",
+                      "No",
+                      () => {
+                        onDelete(planet.id);
+                      }
+                    );
                   }}
                 >
                   Delete

@@ -110,136 +110,161 @@ export function PlanetForm({
         marginBottom: "20px",
       }}
     >
-    <Container>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values }) => (
-          <Form className="planetForm">
-            <Container style={{ display: "flex", flexDirection: "row" }}>
-              <Container>
-                <Field name="name" as={TextField} label="Name" className="planetFormItem" />
-                <Field name="type" as={TextField} label="Type" className="planetFormItem" />
-                <Field name="description" as={TextField} label="Description" className="planetFormItem" multiline rows={5} />
+      <Container>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ values }) => (
+            <Form className="planetForm">
+              <Container style={{ display: "flex", flexDirection: "row" }}>
+                <Container>
+                  <Field
+                    name="name"
+                    as={TextField}
+                    label="Name"
+                    className="planetFormItem"
+                  />
+                  <Field
+                    name="type"
+                    as={TextField}
+                    label="Type"
+                    className="planetFormItem"
+                  />
+                  <Field
+                    name="description"
+                    as={TextField}
+                    label="Description"
+                    className="planetFormItem"
+                    multiline
+                    rows={5}
+                  />
+                </Container>
+                <Container>
+                  <Field
+                    name="size"
+                    label="Size"
+                    options={sizeOptions}
+                    component={SelectField}
+                    className="planetFormItem"
+                  />
+                  <Field
+                    name="difficulty"
+                    label="Difficulty"
+                    options={difficultyOptions}
+                    component={SelectField}
+                    className="planetFormItem"
+                  />
+                  <Field
+                    name="sun"
+                    label="Sun"
+                    options={sunOptions}
+                    component={SelectField}
+                    className="planetFormItem"
+                  />
+                  <Field
+                    name="wind"
+                    label="Wind"
+                    options={windOptions}
+                    component={SelectField}
+                    className="planetFormItem"
+                  />
+                </Container>
               </Container>
-              <Container>
-                <Field
-                  name="size"
-                  label="Size"
-                  options={sizeOptions}
-                  component={SelectField}
-                  className="planetFormItem"
-                />
-                <Field
-                  name="difficulty"
-                  label="Difficulty"
-                  options={difficultyOptions}
-                  component={SelectField}
-                  className="planetFormItem"
-                />
-                <Field
-                  name="sun"
-                  label="Sun"
-                  options={sunOptions}
-                  component={SelectField}
-                  className="planetFormItem"
-                />
-                <Field
-                  name="wind"
-                  label="Wind"
-                  options={windOptions}
-                  component={SelectField}
-                  className="planetFormItem"
-                />
+              <Container style={{ display: "flex", flexDirection: "row" }}>
+                <Button
+                  type="submit"
+                  className=".MuiFormControl-fullWidth"
+                  variant="contained"
+                  color="primary"
+                  style={{ marginLeft: "auto" }}
+                >
+                  Submit
+                </Button>
               </Container>
-            </Container>
-            <Container style={{ display: "flex", flexDirection: "row" }}>
-              <Button type="submit" className=".MuiFormControl-fullWidth" variant="contained" color="primary" style={{ marginLeft: "auto" }}>
-                Submit
-              </Button>
-            </Container>
-            {/* this is first table */}
-            <Container>
-              <Typography
-                variant="h5"
-                gutterBottom
-                style={{ marginTop: "1em" }}
-              >
-                Resources:
-              </Typography>
-              <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <StyledTableRow>
-                      <StyledTableCell></StyledTableCell>
-                      <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell>Location </StyledTableCell>
-                    </StyledTableRow>
-                  </TableHead>
-                  <TableBody>
-                    {resourcesOptions.map(
-                      (resource: Resource, index: number) => (
+              {/* this is first table */}
+              <Container>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  style={{ marginTop: "1em" }}
+                >
+                  Resources:
+                </Typography>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <StyledTableRow>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell>Location </StyledTableCell>
+                      </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                      {resourcesOptions.map(
+                        (resource: Resource, index: number) => (
+                          <StyledTableRow key={resource.id}>
+                            <StyledTableCell>
+                              <MyCheckbox
+                                name={`resources[${index}].selected`}
+                              />
+                            </StyledTableCell>
+                            <StyledTableCell>{resource.name}</StyledTableCell>
+                            <StyledTableCell>
+                              <Field
+                                name={`resources[${index}].location`}
+                                as={TextField}
+                              />
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        )
+                      )}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Container>
+              {/* one or many resources with checkboxes */}
+              <Container>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  style={{ marginTop: "1em" }}
+                >
+                  Gases:
+                </Typography>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <StyledTableRow>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell>Name</StyledTableCell>
+                        <StyledTableCell>Parts per unit</StyledTableCell>
+                      </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                      {gasesOptions.map((resource: Gas, index: number) => (
                         <StyledTableRow key={resource.id}>
                           <StyledTableCell>
-                            <MyCheckbox name={`resources[${index}].selected`} />
+                            <MyCheckbox name={`gases[${index}].selected`} />
                           </StyledTableCell>
                           <StyledTableCell>{resource.name}</StyledTableCell>
                           <StyledTableCell>
                             <Field
-                              name={`resources[${index}].location`}
+                              name={`gases[${index}].partsPerUnit`}
                               as={TextField}
                             />
                           </StyledTableCell>
                         </StyledTableRow>
-                      )
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-            {/* one or many resources with checkboxes */}
-            <Container>
-              <Typography
-                variant="h5"
-                gutterBottom
-                style={{ marginTop: "1em" }}
-              >
-                Gases:
-              </Typography>
-              <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <StyledTableRow>
-                      <StyledTableCell></StyledTableCell>
-                      <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell>Parts per unit</StyledTableCell>
-                    </StyledTableRow>
-                  </TableHead>
-                  <TableBody>
-                    {gasesOptions.map((resource: Gas, index: number) => (
-                      <StyledTableRow key={resource.id}>
-                        <StyledTableCell>
-                          <MyCheckbox name={`gases[${index}].selected`} />
-                        </StyledTableCell>
-                        <StyledTableCell>{resource.name}</StyledTableCell>
-                        <StyledTableCell>
-                          <Field
-                            name={`gases[${index}].partsPerUnit`}
-                            as={TextField}
-                          />
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-          </Form>
-        )}
-      </Formik>
-    </Container>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Container>
+            </Form>
+          )}
+        </Formik>
+      </Container>
     </div>
   );
 }

@@ -71,9 +71,7 @@ function EditPlanet() {
   };
 
   if (loading) {
-    return <Container style={{ textAlign: "center" }}>
-        Loading...
-      </Container>;
+    return <Container style={{ textAlign: "center" }}>Loading...</Container>;
   }
 
   if (!planet) {

@@ -53,7 +53,6 @@
   text-align: center;
 }
 
-
 .astroapi-logo {
   height: 4em;
   pointer-events: none;
@@ -72,11 +71,11 @@
   background-color: #eeeeee;
 }
 
-.planet-icon { 
+.planet-icon {
   width: 30px;
 }
 
-.icon { 
+.icon {
   width: 50px;
 }
 
@@ -86,13 +85,14 @@
   color: black;
 }
 
-.infos { 
-  display: flex; 
-  flex-direction: row; 
+.infos {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
-.infos > p, .infos > h3 {
+.infos > p,
+.infos > h3 {
   margin: 0px;
   margin-left: 10px;
   margin-bottom: 10px;

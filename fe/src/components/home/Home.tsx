@@ -26,10 +26,12 @@ export const Home = () => {
           resources, and gases.
         </Typography>
         <Typography variant="body1" gutterBottom>
-          It's built with React, TypeScript, and Material-UI and inspired by the actual Astroneer wiki, because it was the best idea we could come up with.
+          It's built with React, TypeScript, and Material-UI and inspired by the
+          actual Astroneer wiki, because it was the best idea we could come up
+          with.
         </Typography>
         <Typography variant="body1" gutterBottom>
-            Click on the links above to explore the site, we hope you enjoy!
+          Click on the links above to explore the site, we hope you enjoy!
         </Typography>
       </Box>
     </div>

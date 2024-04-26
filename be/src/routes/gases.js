@@ -6,10 +6,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 const requiredFields = ["name", "byteValue"];
-const allowedFields = [
-  ...Object.keys(prisma.resource.fields),
-  "planets",
-];
+const allowedFields = [...Object.keys(prisma.resource.fields), "planets"];
 
 // GET all
 router.get("/", async (req, res) => {

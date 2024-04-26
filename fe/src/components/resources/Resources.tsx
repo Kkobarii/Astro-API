@@ -23,8 +23,6 @@ export function loader() {
     });
 }
 
-
-
 export function Resources() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +40,9 @@ export function Resources() {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "20%", maxWidth: "15em" }}>
-        <List style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <List
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
           {resources.map((resource) => (
             // <ListItem />
             <ListItem
@@ -52,14 +52,31 @@ export function Resources() {
               to={`/resources/${resource.id}`}
               component={NavLink}
               // @ts-ignore
-              style={({isActive}) => isActive ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}}
+              style={({ isActive }) =>
+                isActive
+                  ? { backgroundColor: "lightgray" }
+                  : { backgroundColor: "white" }
+              }
             >
               <ListItemAvatar>
-                <Avatar style={{ backgroundColor: "white", width: "50px", height: "50px" }}>
-                  <img src={resource.iconUrl} alt={resource.name} className="icon" />
+                <Avatar
+                  style={{
+                    backgroundColor: "white",
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <img
+                    src={resource.iconUrl}
+                    alt={resource.name}
+                    className="icon"
+                  />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={resource.name} style={{ marginLeft: "20px"}} />
+              <ListItemText
+                primary={resource.name}
+                style={{ marginLeft: "20px" }}
+              />
             </ListItem>
           ))}
         </List>
@@ -69,4 +86,4 @@ export function Resources() {
       </div>
     </div>
   );
-};
+}

@@ -9,7 +9,7 @@ let Url = process.env.REACT_APP_BACKEND_URL;
 
 export function CreatePlanet() {
   const navigate = useNavigate();
-  
+
   const handleSubmit = (
     values: PlanetFormProps,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
@@ -44,15 +44,17 @@ export function CreatePlanet() {
     // navigate to the dashboard
   };
 
-  return <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    <h1>Create planet</h1>
-    <PlanetForm handleSubmit={handleSubmit} />
-  </div>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h1>Create planet</h1>
+      <PlanetForm handleSubmit={handleSubmit} />
+    </div>
+  );
 }
