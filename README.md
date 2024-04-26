@@ -74,4 +74,7 @@ Forntend is actually written in Typescript React and backend in Javascript (I fo
 
 ## Note
 
-We ran out of time sadly... But we tried really hard to make it work 😅
+- We ran out of time sadly... But we tried really hard to make it work 😅
+- The commits after deadline are just for the sake of the project, we didn't want to leave it unfinished
+
+> Let's hope the scholarship won't be destroyed because of this
