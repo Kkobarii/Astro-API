@@ -5,13 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import logo from "./logo.png";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider, Tooltip } from "@mui/material";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#90caf9',
+      main: "#90caf9",
     },
   },
 });
@@ -23,8 +23,11 @@ export function App() {
         <AppBar position="static">
           <Toolbar>
             {logo && <img src={logo} alt="logo" className="astroapi-logo" />}
-            <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
-            </Typography>
+            <Typography
+              variant="h3"
+              component="div"
+              sx={{ flexGrow: 1 }}
+            ></Typography>
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>
@@ -37,8 +40,8 @@ export function App() {
             <Button color="inherit" component={Link} to="/gases">
               Gases
             </Button>
-            <Button color="inherit" component={Link} to="/forms">
-              Forms
+            <Button color="inherit" component={Link} to="/creators">
+              Creators
             </Button>
           </Toolbar>
         </AppBar>
@@ -48,16 +51,22 @@ export function App() {
         <Divider />
         <footer className="footer">
           <Typography variant="body2" color="text.secondary" align="center">
-            © {new Date().getFullYear()} AstroAPI | Created by Barbora Kovalská and
+            © {new Date().getFullYear()} AstroAPI | Created by Barbora Kovalská
+            and
             {/* hehe */}
             <Tooltip title="Žožo" placement="top" followCursor>
               <span className="žožo"> Martin </span>
             </Tooltip>
-             Korotwitschka.
+            Korotwitschka.
             <br />
-            Our Github repository can be found <a href="https://github.com/Kkobarii/Astro-API">here</a>.
+            Our Github repository can be found{" "}
+            <a href="https://github.com/Kkobarii/Astro-API">here</a>.
             <br />
-            Image credit goes to the official Astroneer <a href="https://astroneer.fandom.com/wiki/Astroneer_Wiki">website</a>.
+            Image credit goes to the official Astroneer{" "}
+            <a href="https://astroneer.fandom.com/wiki/Astroneer_Wiki">
+              website
+            </a>
+            .
           </Typography>
         </footer>
       </div>

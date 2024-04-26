@@ -25,11 +25,66 @@ function parseNumberElseError(number, name, res) {
 }
 
 /**
+ * Checks if already exists unique fields in model.
+ * @param {*} model
+ * @param {*} fields
+ * @param {*} res
+ * @returns
+ */
+async function checkUniqueFields(model, fields, req, res) {
+  console.log("unique fields", fields);
+  let errors = [];
+  for (let field in fields) {
+    console.log("field", { [fields[field]]: req.body[fields[field]] });
+    let fetched = await model.findMany({
+      where: { [fields[field]]: req.body[fields[field]] },
+    });
+    console.log("fetched", fetched);
+    if (fetched.length !== 0) {
+      errors.push({ [fields[field]]: req.body[fields[field]] });
+    }
+  }
+  if (errors.length !== 0) {
+    console.log("errors is not null so cajk", errors);
+    return (
+      false,
+      serverError(
+        res,
+        "Unique fields already exists",
+        { message: "Unique fields already exists", errors },
+        403
+      )
+    );
+  }
+  return true;
+}
+
+/**
  * Parses query from request.
  * not sure how its working even if its working
  * anyway it doesnt like pagination input //TODO mby add it to it not sure
  *
  * @param {*} query query from request
+ *
+ * example query: planets?name=equals:AA - finds planets with name AA
+ *
+ * where name is searched field
+ *
+ * all options:
+ *
+ *   equals?: String | StringFieldRefInput,
+ *   in?: String[],
+ *   notIn?: String[],
+ *   lt?: String | StringFieldRefInput,
+ *   lte?: String | StringFieldRefInput,
+ *   gt?: String | StringFieldRefInput,
+ *   gte?: String | StringFieldRefInput,
+ *   contains?: String | StringFieldRefInput,
+ *   startsWith?: String | StringFieldRefInput,
+ *   endsWith?: String | StringFieldRefInput,
+ *   not?: String | NestedStringFilter
+ *
+ *
  * @param {*} res response object
  * @returns object with select, include and where
  */
@@ -138,13 +193,6 @@ export function parsePagination(query) {
  * @param {*} status optional status to send to client (default: 500)
  */
 function serverError(res, e, message = "Internal Server error", status = 500) {
-  // i mean this is useless
-  // fs.appendFile("error.log", e, (err) => {
-  //   if (err) {
-  //     console.error("Error writing to log file");
-  //     throw err;
-  //   }
-  // });
   console.error(e);
   res.json({ error: message }).status(status);
 }
@@ -160,15 +208,19 @@ function hasRequiredFields(requiredFields, request, response) {
   //return requiredFields.every((field) => data[field]);
   var errors = [];
   for (let field of requiredFields) {
+    console.log("hasRequired fields field", field);
     if (!request.body.hasOwnProperty(field)) {
       errors.push(field);
     }
   }
   if (errors.length > 0) {
-    return response.status(400).json({
-      error: "Item not created, missing required fields",
-      missingFields: errors,
-    });
+    return (
+      false,
+      response.status(400).json({
+        error: "Item not created, missing required fields",
+        missingFields: errors,
+      })
+    );
   }
   return true;
 }
@@ -331,21 +383,27 @@ export const getAll =
  * Creates a new item in a model.
  * @param {Object} model - The model to create the item in.
  * @param {string[]} requiredFields - The required fields for the item.
+ * @param {string[]} [uniqueFields=["name"]] - The unique fields for the item.
+ *
+ * This is also discusitng so long as i dont know how to fetch @ unique fields form prisma schema
  * @returns {Function} A function to be used in a route.
  */
-export const create = (model, requiredFields) => async (req, res) => {
-  try {
-    if (!hasRequiredFields(requiredFields, req, res)) {
-      return;
+export const create =
+  (model, requiredFields, uniqueFields = ["name"]) =>
+  async (req, res) => {
+    try {
+      if (!(await hasRequiredFields(requiredFields, req, res))) return;
+      if (!(await checkUniqueFields(model, uniqueFields, req, res))) return;
+
+      const item = await model.create({
+        data: req.body,
+      });
+      res.json(item).status(201);
+    } catch (error) {
+      console.error("ERROR:", error);
+      serverError(res, error);
     }
-    const item = await model.create({
-      data: req.body,
-    });
-    res.json(item).status(201);
-  } catch (error) {
-    serverError(res, error);
-  }
-};
+  };
 
 /**
  * Updates an item in a model.
@@ -354,6 +412,8 @@ export const create = (model, requiredFields) => async (req, res) => {
  * @returns {Function} A function to be used in a route.
  */
 export const update = (model, requiredFields) => async (req, res) => {
+  requiredFields.push("id");
+  console.log("req.body", req.body);
   try {
     if (!hasRequiredFields(requiredFields, req, res)) {
       return;
@@ -411,7 +471,7 @@ export const remove = (model) => async (req, res) => {
 
     const item = await model.delete({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
 

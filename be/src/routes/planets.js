@@ -35,10 +35,12 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST
-router.post("/", crud.create(prisma.planet, requiredFields));
+router.post("/", async (req, res) => {
+  crud.create(prisma.planet, requiredFields)(req, res);
+});
 
 // PUT
-router.put("/:id", crud.update(prisma.planet, requiredFields.push("id")));
+router.put("/:id", crud.update(prisma.planet, requiredFields));
 
 // DELETE
 router.delete("/:id", crud.remove(prisma.planet));

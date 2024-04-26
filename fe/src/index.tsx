@@ -10,7 +10,10 @@ import {
   loader as planetDetailLoader,
 } from "./components/planets/PlanetDetail";
 
-import { Resources, loader as resourcesLoader } from "./components/resources/Resources";
+import {
+  Resources,
+  loader as resourcesLoader,
+} from "./components/resources/Resources";
 import {
   ResourceDetail,
   loader as resourceDetailLoader,
@@ -23,8 +26,9 @@ import {
 } from "./components/gases/GasDetail";
 import { Home } from "./components/home/Home";
 
-import { PlanetForm } from "./components/forms/PlantesForm";
+import { PlanetForm } from "./components/forms/PlanetForm";
 
+import { DashboardHome } from "./components/forms/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -32,34 +36,47 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: "planets", loader: planetsLoader, element: <Planets />,
-      children: [
-        { index: true, element: <h2>Select a planet</h2> },
-        {
-          path: ":planetId",
-          loader: planetDetailLoader,
-          element: <PlanetDetail />,
-        },
-      ], },
-      { path: "resources", loader: resourcesLoader, element: <Resources />,
-      children: [
-        { index: true, element: <h2>Select a resource</h2> },
-        {
-          path: ":resourceId",
-          loader: resourceDetailLoader,
-          element: <ResourceDetail />,
-        },
-      ], },
-      { path: "gases", loader: gasLoader, element: <Gases />,
-      children: [
-        { index: true, element: <h2>Select a gas</h2> },
-        {
-          path: ":gasId",
-          loader: gasDetailLoader,
-          element: <GasDetail />,
-        },
-      ], },
-      { path: "forms", element: <PlanetForm />,     },
+      {
+        path: "planets",
+        loader: planetsLoader,
+        element: <Planets />,
+        children: [
+          { index: true, element: <h2>Select a planet</h2> },
+          {
+            path: ":planetId",
+            loader: planetDetailLoader,
+            element: <PlanetDetail />,
+          },
+        ],
+      },
+      {
+        path: "resources",
+        loader: resourcesLoader,
+        element: <Resources />,
+        children: [
+          { index: true, element: <h2>Select a resource</h2> },
+          {
+            path: ":resourceId",
+            loader: resourceDetailLoader,
+            element: <ResourceDetail />,
+          },
+        ],
+      },
+      {
+        path: "gases",
+        loader: gasLoader,
+        element: <Gases />,
+        children: [
+          { index: true, element: <h2>Select a gas</h2> },
+          {
+            path: ":gasId",
+            loader: gasDetailLoader,
+            element: <GasDetail />,
+          },
+        ],
+      },
+      { path: "creators", element: <DashboardHome /> },
+      { path: "creators/new-planet", element: <PlanetForm /> },
     ],
   },
 ]);
