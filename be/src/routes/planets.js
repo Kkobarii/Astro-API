@@ -42,11 +42,13 @@ router.post("/", async (req, res) => {
   delete req.body.gases;
   delete req.body.resources;
 
-  if (req.body.iconUrl == null || req.body.iconUrl == undefined) { 
-    req.body.iconUrl = "https://static.wikia.nocookie.net/astroneer_gamepedia/images/f/fb/Icon_Landing_Pad.png";
+  if (req.body.iconUrl == null || req.body.iconUrl == undefined) {
+    req.body.iconUrl =
+      "https://static.wikia.nocookie.net/astroneer_gamepedia/images/f/fb/Icon_Landing_Pad.png";
   }
   if (req.body.imageUrl == null || req.body.imageUrl == undefined) {
-    req.body.imageUrl = "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/35/Landings_Zones.jpg";
+    req.body.imageUrl =
+      "https://static.wikia.nocookie.net/astroneer_gamepedia/images/3/35/Landings_Zones.jpg";
   }
 
   if (gases) {
