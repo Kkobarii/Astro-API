@@ -101,51 +101,59 @@ export function PlanetForm({
   });
 
   return (
-    <Box
-      component="section"
-      sx={{
-        mt: 3,
-        margin: 5,
-        padding: 5,
-        border: 1,
-        borderColor: "grey.500",
-        borderRadius: 1,
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
+    <Container>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ values }) => (
-          <Form style={{ margin: 5 }}>
-            <Field name="name" as={TextField} label="Name" />
-            <Field name="description" as={TextField} label="Description" />
-            <Field name="type" as={TextField} label="Type" />
-            <Field
-              name="size"
-              label="Size"
-              options={sizeOptions}
-              component={SelectField}
-            />
-            <Field
-              name="difficulty"
-              label="Difficulty"
-              options={difficultyOptions}
-              component={SelectField}
-            />
-            <Field
-              name="sun"
-              label="Sun"
-              options={sunOptions}
-              component={SelectField}
-            />
-            <Field
-              name="wind"
-              label="Wind"
-              options={windOptions}
-              component={SelectField}
-            />
+          <Form className="planetForm">
+            <Container style={{ display: "flex", flexDirection: "row" }}>
+              <Container>
+                <Field name="name" as={TextField} label="Name" className="planetFormItem" />
+                <Field name="type" as={TextField} label="Type" className="planetFormItem" />
+                <Field name="description" as={TextField} label="Description" className="planetFormItem" multiline rows={5} />
+              </Container>
+              <Container>
+                <Field
+                  name="size"
+                  label="Size"
+                  options={sizeOptions}
+                  component={SelectField}
+                  className="planetFormItem"
+                />
+                <Field
+                  name="difficulty"
+                  label="Difficulty"
+                  options={difficultyOptions}
+                  component={SelectField}
+                  className="planetFormItem"
+                />
+                <Field
+                  name="sun"
+                  label="Sun"
+                  options={sunOptions}
+                  component={SelectField}
+                  className="planetFormItem"
+                />
+                <Field
+                  name="wind"
+                  label="Wind"
+                  options={windOptions}
+                  component={SelectField}
+                  className="planetFormItem"
+                />
+              </Container>
+            </Container>
             {/* this is first table */}
             <Container>
               <Typography
@@ -228,6 +236,7 @@ export function PlanetForm({
           </Form>
         )}
       </Formik>
-    </Box>
+    </Container>
+    </div>
   );
 }

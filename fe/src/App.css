@@ -113,3 +113,12 @@
   text-align: left;
   font-size: larger;
 }
+
+.planetForm {
+  margin: 5px;
+}
+
+.planetFormItem {
+  margin: 20px !important;
+  width: 100% !important;
+}

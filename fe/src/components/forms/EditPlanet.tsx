@@ -73,7 +73,14 @@ function EditPlanet() {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>Edit planet</h1>
       <PlanetForm handleSubmit={handleSubmit} planet={planet} />
     </div>
