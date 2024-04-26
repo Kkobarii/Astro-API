@@ -107,6 +107,7 @@ export function PlanetForm({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: "20px",
       }}
     >
     <Container>
@@ -153,6 +154,11 @@ export function PlanetForm({
                   className="planetFormItem"
                 />
               </Container>
+            </Container>
+            <Container style={{ display: "flex", flexDirection: "row" }}>
+              <Button type="submit" className=".MuiFormControl-fullWidth" variant="contained" color="primary" style={{ marginLeft: "auto" }}>
+                Submit
+              </Button>
             </Container>
             {/* this is first table */}
             <Container>
@@ -230,9 +236,6 @@ export function PlanetForm({
                 </Table>
               </TableContainer>
             </Container>
-            <Button type="submit" className=".MuiFormControl-fullWidth" variant="contained" color="primary">
-              Submit
-            </Button>
           </Form>
         )}
       </Formik>

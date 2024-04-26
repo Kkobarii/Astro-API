@@ -61,7 +61,7 @@ export const DashboardHome = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ marginBottom: "20px" }}>
       <Stack direction="row" spacing={2} style={{justifyContent: 'space-between', margin:'20px'}}>
       <h1>Welcome to AstroAPI Editor</h1>
       

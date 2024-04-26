@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Planet, PlanetFormProps } from "../../misc/interfaces";
 import { PlanetForm } from "./PlanetForm";
+import { Report } from "notiflix";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
@@ -18,6 +19,8 @@ function loader({ params }: any) {
 }
 
 function EditPlanet() {
+  const navigate = useNavigate();
+
   const { planetId: id } = useParams();
   const [loading, setLoading] = useState(true);
   const [planet, setPlanet] = useState<Planet | null>(null);
@@ -58,9 +61,11 @@ function EditPlanet() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        navigate("/creators");
       })
       .catch((error) => {
         console.error("Error:", error);
+        Report.failure("Error creating planet", "Please try again later", "OK");
       });
   };
 
