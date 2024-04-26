@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
 
 interface User {
@@ -49,7 +50,9 @@ function UserList() {
   const { users, loading, error } = useUsers();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Container style={{ textAlign: "center" }}>
+      Loading...
+    </Container>;
   }
 
   if (error) {

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Planet, PlanetFormProps } from "../../misc/interfaces";
 import { PlanetForm } from "./PlanetForm";
 import { Report } from "notiflix";
+import { Container } from "@mui/material";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
@@ -70,7 +71,9 @@ function EditPlanet() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Container style={{ textAlign: "center" }}>
+        Loading...
+      </Container>;
   }
 
   if (!planet) {
