@@ -214,6 +214,7 @@ function hasRequiredFields(requiredFields, request, response) {
     }
   }
   if (errors.length > 0) {
+    console.log("errors in has required ", errors);
     return (
       false,
       response.status(400).json({
@@ -415,8 +416,9 @@ export const update = (model, requiredFields) => async (req, res) => {
   requiredFields.push("id");
   console.log("req.body", req.body);
   try {
-    if (!(await hasRequiredFields(requiredFields, req, res))) return;
+    if (!hasRequiredFields(requiredFields, req, res)[0]) return;
 
+    console.log("tu nemám být");
     const { id } = req.params;
     if (!parseInt(id)) {
       return serverError(
