@@ -56,7 +56,7 @@ Forntend is actually written in Typescript React and backend in Javascript (I fo
 - 5 Functional requirements
   - [x] App Layout with Navigation (Routing)
   - [x] Main page with information about the app
-  - [ ] All CRUD operations on one resource (Create Form, Edit Form, List/Table, Delete, Detail View)
+  - [x] All CRUD operations on one resource (Create Form, Edit Form, List/Table, Delete, Detail View)
 - 5 Component structure
   - [x] Split your application into several components. Don’t make huge ones.
 - 5 Client-side routing
