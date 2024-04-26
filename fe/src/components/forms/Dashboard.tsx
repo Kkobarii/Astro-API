@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { Planet } from "../../misc/interfaces";
 import { url } from "inspector";
 import { Button } from "@mui/material";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, Route, HistoryRouterProps } from "react-router-dom";
+import { EditPlanet } from "./EditPlanet";
 
 let BaseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -41,6 +42,11 @@ export const DashboardHome = () => {
     fetch(url, {
       method: "DELETE",
     });
+  };
+
+  const onUpdate = (id: number) => {
+    console.log("Update planet with id: " + id);
+    //somehow redirect to edit planet form
   };
 
   return (

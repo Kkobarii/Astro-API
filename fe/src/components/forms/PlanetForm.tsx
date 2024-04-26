@@ -21,13 +21,23 @@ import { Formik, Form, Field, FieldProps, useField } from "formik";
 import * as Yup from "yup";
 import { StyledTableCell, StyledTableRow } from "../styled/StyledTable";
 import { useState, useEffect } from "react";
-import { Gas, PlanetFormProps, Resource } from "../../misc/interfaces";
+import { Gas, Planet, PlanetFormProps, Resource } from "../../misc/interfaces";
 import { SelectField } from "../styled/SelectField";
 import { MyCheckbox } from "../styled/MyCheckbox";
+import { on } from "events";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
-export function PlanetForm() {
+export function PlanetForm({
+  handleSubmit,
+  planet,
+}: {
+  handleSubmit: (
+    values: PlanetFormProps,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ) => void;
+  planet?: Planet;
+}) {
   const sizeOptions = ["Small", "Medium", "Large"];
   const difficultyOptions = ["Easy", "Medium", "Hard", "Very Hard", "Extreme"];
   const sunOptions = ["Very low", "Low", "Medium", "High", "Very High"];
@@ -87,36 +97,6 @@ export function PlanetForm() {
     sun: Yup.string().required("Required"),
     wind: Yup.string().required("Required"),
   });
-
-  const handleSubmit = (
-    values: PlanetFormProps,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-  ) => {
-    console.log("Form values:", values);
-    setSubmitting(false);
-
-    // //get and delete gases and resources from values
-    // const gases = values.gases;
-    // delete values.gases;
-    // const resources = values.resources;
-    // delete values.resources;
-
-    // // POST request to create a new planet
-    // fetch(Url + "/planets/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(values),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
-  };
 
   return (
     <Box
@@ -243,8 +223,6 @@ export function PlanetForm() {
             <Button type="submit" className=".MuiFormControl-fullWidth">
               Submit
             </Button>
-            <pre>{JSON.stringify(values, null, 2)}</pre> // This line is for
-            debugging, it will display form values
           </Form>
         )}
       </Formik>

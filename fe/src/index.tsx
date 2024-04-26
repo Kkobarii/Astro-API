@@ -29,6 +29,7 @@ import { Home } from "./components/home/Home";
 import { PlanetForm } from "./components/forms/PlanetForm";
 
 import { DashboardHome } from "./components/forms/Dashboard";
+import { CreatePlanet } from "./components/forms/CreatePlanet";
 
 const router = createBrowserRouter([
   {
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "creators", element: <DashboardHome /> },
-      { path: "creators/new-planet", element: <PlanetForm /> },
+      { path: "creators/new-planet", element: <CreatePlanet /> },
     ],
   },
 ]);
