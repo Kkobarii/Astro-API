@@ -36,6 +36,19 @@ router.get("/:id", async (req, res) => {
 
 // POST
 router.post("/", async (req, res) => {
+  let gases = req.body.gases;
+  let resources = req.body.resources;
+
+  delete req.body.gases;
+  delete req.body.resources;
+
+  if (gases) {
+    crud.create(prisma.planetGas, ["partsPerUnit"])(gases, res);
+  }
+  if (resources) {
+    crud.create(prisma.planetResource, ["location"])(resources, res);
+  }
+
   crud.create(prisma.planet, requiredFields)(req, res);
 });
 

@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import { Planet } from "../../misc/interfaces";
 import { url } from "inspector";
 import { Button } from "@mui/material";
-import { Outlet, Link, Route, HistoryRouterProps } from "react-router-dom";
+import {
+  Outlet,
+  Link,
+  Route,
+  HistoryRouterProps,
+  useNavigate,
+} from "react-router-dom";
 import { EditPlanet } from "./EditPlanet";
 
 let BaseUrl = process.env.REACT_APP_BACKEND_URL;
@@ -46,7 +52,10 @@ export const DashboardHome = () => {
 
   const onUpdate = (id: number) => {
     console.log("Update planet with id: " + id);
-    //somehow redirect to edit planet form
+    console.log("Redirecting to edit planet form");
+    //routeChange();
+    //return <EditPlanet id={id} />;
+    return <Link to={"/creators/edit-planet/" + id} />;
   };
 
   return (
@@ -58,7 +67,7 @@ export const DashboardHome = () => {
       <PlanetDashboard
         planets={planets}
         onDelete={onDelete}
-        onUpdate={loader}
+        onUpdate={onUpdate}
       />
     </div>
   );

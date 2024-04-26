@@ -5,7 +5,7 @@ import { PlanetForm } from "./PlanetForm";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
-export function EditPlanet({ id }: { id: string }) {
+export function EditPlanet({ id }: { id: number }) {
   const [planet, setPlanet] = useState<Planet | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +32,7 @@ export function EditPlanet({ id }: { id: string }) {
     delete values.resources;
 
     // POST request to create a new planet
-    fetch(Url + "/planets/", {
+    fetch(Url + "/planets/" + id, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
