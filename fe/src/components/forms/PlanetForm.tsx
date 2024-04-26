@@ -25,6 +25,7 @@ import { Gas, Planet, PlanetFormProps, Resource } from "../../misc/interfaces";
 import { SelectField } from "../styled/SelectField";
 import { MyCheckbox } from "../styled/MyCheckbox";
 import { on } from "events";
+import { idText } from "typescript";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
@@ -69,13 +70,14 @@ export function PlanetForm({
   console.log(resourcesOptions);
 
   const initialValues = {
-    name: "",
-    description: "",
-    type: "",
-    size: sizeOptions[0],
-    difficulty: difficultyOptions[0],
-    sun: sunOptions[0],
-    wind: windOptions[0],
+    id: planet?.id || 0,
+    name: planet?.name || "",
+    description: planet?.description || "",
+    type: planet?.type || "",
+    size: planet?.size || sizeOptions[0],
+    difficulty: planet?.difficulty || difficultyOptions[0],
+    sun: planet?.sun || sunOptions[0],
+    wind: planet?.wind || windOptions[0],
     resources: resourcesOptions.map((resource) => ({
       selected: false,
       location: "",

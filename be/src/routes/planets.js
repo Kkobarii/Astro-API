@@ -53,7 +53,12 @@ router.post("/", async (req, res) => {
 });
 
 // PUT
-router.put("/:id", crud.update(prisma.planet, requiredFields));
+router.put("/:id", async (req, res) => {
+  let gases = req.body.gases;
+  let resources = req.body.resources;
+
+  crud.update(prisma.planet, requiredFields)(req, res);
+});
 
 // DELETE
 router.delete("/:id", crud.remove(prisma.planet));

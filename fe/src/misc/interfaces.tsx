@@ -34,6 +34,7 @@ export type CheckboxFieldProps = FieldProps & { label: string };
 
 export interface PlanetFormProps {
   //gases:
+  id: number;
   description: string;
   difficulty: string;
   name: string;

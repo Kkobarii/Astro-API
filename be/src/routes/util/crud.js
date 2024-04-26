@@ -415,9 +415,7 @@ export const update = (model, requiredFields) => async (req, res) => {
   requiredFields.push("id");
   console.log("req.body", req.body);
   try {
-    if (!hasRequiredFields(requiredFields, req, res)) {
-      return;
-    }
+    if (!(await hasRequiredFields(requiredFields, req, res))) return;
 
     const { id } = req.params;
     if (!parseInt(id)) {
@@ -443,6 +441,7 @@ export const update = (model, requiredFields) => async (req, res) => {
 
     res.json(item).status(200);
   } catch (error) {
+    console.error("ERROR:", error);
     serverError(res, error);
   }
 };

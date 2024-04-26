@@ -1,9 +1,17 @@
-import PlanetDashboard from "./Planets";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Planet } from "../../misc/interfaces";
 import { url } from "inspector";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import {
   Outlet,
   Link,
@@ -50,25 +58,52 @@ export const DashboardHome = () => {
     });
   };
 
-  const onUpdate = (id: number) => {
-    console.log("Update planet with id: " + id);
-    console.log("Redirecting to edit planet form");
-    //routeChange();
-    //return <EditPlanet id={id} />;
-    return <Link to={"/creators/edit-planet/" + id} />;
-  };
-
   return (
     <div>
       <h1>Welcome to AstroAPI Editor</h1>
       <Button component={Link} to="/creators/new-planet">
         Add new planet
       </Button>
-      <PlanetDashboard
-        planets={planets}
-        onDelete={onDelete}
-        onUpdate={onUpdate}
-      />
+      return (
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Size</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {planets.map((planet) => (
+              <TableRow key={planet.id}>
+                <TableCell>{planet.name}</TableCell>
+                <TableCell>{planet.type}</TableCell>
+                <TableCell>{planet.size}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to={`/creators/edit-planet/${planet.id}`}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => onDelete(planet.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      );
     </div>
   );
 };

@@ -6,7 +6,8 @@ import { PlanetForm } from "./PlanetForm";
 let Url = process.env.REACT_APP_BACKEND_URL;
 
 function loader({ params }: any) {
-  const planetUrl = Url + "/planets/" + params.planetId + "?include=resources&include=gases";
+  const planetUrl =
+    Url + "/planets/" + params.planetId + "?include=resources&include=gases";
 
   // Fetch planet data
   return fetch(planetUrl)
@@ -47,8 +48,8 @@ function EditPlanet() {
     delete values.resources;
 
     // POST request to create a new planet
-    fetch(Url + "/planets/", {
-      method: "POST",
+    fetch(Url + "/planets/" + values.id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
