@@ -30,6 +30,7 @@ import { PlanetForm } from "./components/forms/PlanetForm";
 
 import { DashboardHome } from "./components/forms/Dashboard";
 import { CreatePlanet } from "./components/forms/CreatePlanet";
+import { EditPlanet, loader as editPlanetLoader } from "./components/forms/EditPlanet";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
       },
       { path: "creators", element: <DashboardHome /> },
       { path: "creators/new-planet", element: <CreatePlanet /> },
+      { path: "creators/edit-planet/:planetId", element: <EditPlanet />, loader: editPlanetLoader },
     ],
   },
 ]);

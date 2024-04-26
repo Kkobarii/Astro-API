@@ -5,9 +5,24 @@ import { PlanetForm } from "./PlanetForm";
 
 let Url = process.env.REACT_APP_BACKEND_URL;
 
-export function EditPlanet({ id }: { id: number }) {
-  const [planet, setPlanet] = useState<Planet | null>(null);
+function loader({ params }: any) {
+  const planetUrl = Url + "/planets/" + params.planetId + "?include=resources&include=gases";
+
+  // Fetch planet data
+  return fetch(planetUrl)
+    .then((response) => response.json())
+    .then((planetData) => {
+      return planetData;
+    });
+}
+
+function EditPlanet() {
+  const { planetId: id } = useParams();
   const [loading, setLoading] = useState(true);
+  const [planet, setPlanet] = useState<Planet | null>(null);
+
+  console.log("EditPlanet id:", id);
+  console.log("EditPlanet planet:", planet);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/planets/${id}`)
@@ -32,7 +47,7 @@ export function EditPlanet({ id }: { id: number }) {
     delete values.resources;
 
     // POST request to create a new planet
-    fetch(Url + "/planets/" + id, {
+    fetch(Url + "/planets/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,3 +78,5 @@ export function EditPlanet({ id }: { id: number }) {
     </div>
   );
 }
+
+export { EditPlanet, loader };
