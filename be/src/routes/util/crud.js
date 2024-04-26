@@ -392,6 +392,7 @@ export const getAll =
 export const create =
   (model, requiredFields, uniqueFields = ["name"]) =>
   async (req, res) => {
+    delete req.body.id;
     try {
       if (!(await hasRequiredFields(requiredFields, req, res))) return;
       if (!(await checkUniqueFields(model, uniqueFields, req, res))) return;
